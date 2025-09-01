@@ -1,1 +1,13 @@
-*Zone.Identifier
+node_modules/
+.vite/
+dist/
+.venv/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+.env*
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+coverage/

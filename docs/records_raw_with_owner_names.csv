@@ -28,7 +28,7 @@ season,team_id,team_name,owner_display,owner_id,team.division_id,wins,losses,tie
 2014,1,Arizona Wombats,,,,8,5,0,1169,959,8,,,,Jeremiah,E.
 2014,10,Scottsdale Holy Warriors,,,,6,7,0,919,1077,7,,,,Russ,R.
 2014,11,Slater Chatty Cathies,,,,3,10,0,1094,1231,12,,,,Marliese,R.
-2014,12,I Put Brady in the Corner,,,,8,5,0,1169,1117,1,,,,Heather,R.
+2014,12,I Put Brady in the Corner,,,,8,5,0,1169,1117,1,,,,,.
 2014,2,Arizona Little Britches,,,,8,5,0,1145,999,5,,,,Jamie,S.
 2014,3,Draper Big Dogs,,,,2,11,0,861,1165,9,,,,Paul,E.
 2014,4,Arizona Daikat,,,,8,5,0,1162,1127,4,,,,Scott,F.
@@ -40,7 +40,7 @@ season,team_id,team_name,owner_display,owner_id,team.division_id,wins,losses,tie
 2015,1,Arizona Wombats,,,,6,7,0,1250,1097,9,,,,Jeremiah,E.
 2015,10,Scottsdale Holy Warriors,,,,0,13,0,814,1207,10,,,,Russ,R.
 2015,11,Slater Chatty Cathies,,,,3,10,0,937,1077,12,,,,Marliese,R.
-2015,12,California Crysanthemums,,,,8,5,0,1156,1084,3,,,,Heather,R.
+2015,12,California Crysanthemums,,,,8,5,0,1156,1084,3,,,,,.
 2015,2,Arizona Little Britches,,,,8,5,0,1146,1104,8,,,,Jamie,S.
 2015,3,California Neutrals,,,,9,4,0,1066,1101,4,,,,Niklas,J.
 2015,4,Arizona Daikat,,,,7,6,0,1127,1105,6,,,,Scott,F.
@@ -52,7 +52,7 @@ season,team_id,team_name,owner_display,owner_id,team.division_id,wins,losses,tie
 2016,1,Arizona Wombats,,,,6,7,0,1078,1065,5,,,,Jeremiah,E.
 2016,10,Scottsdale Holy Warriors,,,,9,4,0,1290,1077,1,,,,Joshua,S.
 2016,11,Slater Chatty Cathies,,,,6,7,0,1205,1137,9,,,,Marliese,R.
-2016,12,California Crysanthemums,,,,7,6,0,1113,1137,3,,,,Heather,R.
+2016,12,California Crysanthemums,,,,7,6,0,1113,1137,3,,,,,.
 2016,2,Arizona Smol Puppers,,,,5,8,0,1070,1202,7,,,,Alana,I.
 2016,3,SoCal Smorgasbords,,,,4,9,0,1083,1232,12,,,,Niklas,J.
 2016,4,Arizona Daikat,,,,4,9,0,969,1099,10,,,,Scott,F.
@@ -64,7 +64,7 @@ season,team_id,team_name,owner_display,owner_id,team.division_id,wins,losses,tie
 2017,1,Arizona Wombats,,,,5,8,0,1056,1196,8,,,,Jeremiah,E.
 2017,10,Scottsdale Holy Warriors,,,,9,4,0,1200,1116,2,,,,Joshua,S.
 2017,11,Slater Chatty Cathies,,,,7,6,0,927,991,5,,,,Marliese,R.
-2017,12,California Crysanthemums,,,,8,5,0,1068,934,4,,,,Heather,R.
+2017,12,California Crysanthemums,,,,8,5,0,1068,934,4,,,,,.
 2017,2,Arizona Smol Puppers,,,,7,6,0,1092,1065,7,,,,Alana,I.
 2017,3,SoCal Smorgasbords,,,,5,8,0,989,1111,12,,,,Niklas,J.
 2017,4,Arizona Daikat,,,,4,9,0,923,1079,11,,,,Scott,F.
@@ -76,7 +76,7 @@ season,team_id,team_name,owner_display,owner_id,team.division_id,wins,losses,tie
 2018,1,Arizona Wombats,,,,6,7,0,1281,1198,9,,,,Jeremiah,E.
 2018,10,Scottsdale Holy Warriors,,,,9,4,0,1371,1175,4,,,,Joshua,S.
 2018,11,Slater Chatty Cathies,,,,5,8,0,1198,1243,8,,,,Marliese,R.
-2018,12,California Crysanthemums,,,,4,8,1,1083,1268,12,,,,Heather,R.
+2018,12,California Crysanthemums,,,,4,8,1,1083,1268,12,,,,,.
 2018,2,Arizona Smol Puppers,,,,6,6,1,1163,1273,6,,,,Alana,I.
 2018,3,SoCal Smorgasbords,,,,7,6,0,1104,1058,2,,,,Niklas,J.
 2018,4,Arizona Daikat,,,,3,10,0,1088,1251,10,,,,Scott,F.
@@ -88,7 +88,7 @@ season,team_id,team_name,owner_display,owner_id,team.division_id,wins,losses,tie
 2019,1,Arizona Wombats,,,,6,7,0,1111,1152,10,,,,Jeremiah,E.
 2019,10,SB Holy Warriors,,,,7,6,0,1231,1183,6,,,,Joshua,S.
 2019,11,Slater Chatty Cathies,,,,8,5,0,1277,1091,2,,,,Marliese,R.
-2019,12,California Crysanthemums,,,,2,11,0,930,1236,12,,,,Heather,R.
+2019,12,California Crysanthemums,,,,2,11,0,930,1236,12,,,,,.
 2019,2,Arizona Smol Puppers,,,,10,3,0,1259,1066,3,,,,Alana,I.
 2019,3,SoCal Smorgasbords,,,,5,8,0,1052,1149,11,,,,Niklas,J.
 2019,4,Arizona Daikat,,,,3,10,0,1043,1195,9,,,,Scott,F.
