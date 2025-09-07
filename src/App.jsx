@@ -212,14 +212,14 @@ export default function App(){
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
-      <header className="sticky top-0 z-50 bg-slate-900/95 border-b border-slate-800">
+      <header className="md:sticky md:top-0 z-50 bg-slate-900/95 border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-start md:items-center justify-between gap-6">
             <div className="flex items-start gap-4 min-w-0">
               <div className="relative">
-                {headerImgUrl? <img src={headerImgUrl} alt="HFL header art" className="h-24 md:h-28 w-auto rounded-md border border-slate-800 shadow shrink-0" /> : <div className="h-16 w-28 rounded-md border border-slate-800 bg-slate-800/40" />}
+                {headerImgUrl? <img src={headerImgUrl} alt="HFL header art" className="h-14 sm:h-16 md:h-28 w-auto rounded-md border border-slate-800 shadow shrink-0" /> : <div className="h-16 w-28 rounded-md border border-slate-800 bg-slate-800/40" />}
               </div>
-              <h1 className="text-[3.5rem] leading-[3rem] font-black tracking-tight">
+              <h1 className="text-[2rem] leading-[2.25rem] md:text-[3.5rem] md:leading-[3rem] font-black tracking-tight">
                 <span className="block">Happy Fun League</span>
                 <span className="block"><span className="text-fuchsia-400">Records of Glory</span> & <span className="text-rose-400">Shame</span></span>
               </h1>
