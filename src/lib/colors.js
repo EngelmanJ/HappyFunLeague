@@ -1,22 +1,40 @@
 // src/lib/colors.js
-import staticMap from '/assets/division-colors.json';
+// No imports from /public; fetch at runtime instead.
 
-const DIV_PALETTE = ["#8b5cf6","#f59e0b","#10b981","#3b82f6","#ef4444","#ec4899","#14b8a6","#84cc16","#f97316","#06b6d4"];
+const DIV_PALETTE = [
+  "#8b5cf6","#f59e0b","#10b981","#3b82f6",
+  "#ef4444","#ec4899","#14b8a6","#84cc16",
+  "#f97316","#06b6d4"
+];
+
+let staticMap = null;
+if (typeof window !== "undefined") {
+  try {
+    fetch("/assets/division-colors.json", { cache: "no-store" })
+      .then(r => (r.ok ? r.json() : {}))
+      .then(m => { staticMap = m || {}; })
+      .catch(() => { staticMap = {}; });
+  } catch {
+    staticMap = {};
+  }
+}
 
 export function hashColor(name){
   if(!name) return undefined;
+  const s = String(name);
   let h = 0;
-  for(let i=0;i<name.length;i++) h = (h*31 + name.charCodeAt(i)) >>> 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
   return DIV_PALETTE[h % DIV_PALETTE.length];
 }
 
 export function getDivisionColor(name){
   if(!name) return undefined;
-  const exact = staticMap?.[name];
-  if (exact) return exact;
-  const lowerKey = Object.keys(staticMap||{}).find(k => k.toLowerCase() === String(name).toLowerCase());
-  if (lowerKey) return staticMap[lowerKey];
-  return hashColor(String(name));
+  const s = String(name);
+  const m = staticMap || {};
+  if (m[s]) return m[s];
+  const k = Object.keys(m).find(k => k.toLowerCase() === s.toLowerCase());
+  if (k) return m[k];
+  return hashColor(s);
 }
 
 export function alphaBg(hex, a = 0.15){
