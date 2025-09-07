@@ -31,6 +31,28 @@ const DIV_PALETTE=["#8b5cf6","#f59e0b","#10b981","#3b82f6","#ef4444","#ec4899","
 const divColor=(name)=>{ if(!name) return undefined; const s=String(name); let h=0; for(let i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))>>>0; return DIV_PALETTE[h%DIV_PALETTE.length]; };
 const aBg=(hex)=>{ if(!hex) return undefined; const h=hex.replace('#',''); const r=parseInt(h.slice(0,2),16), g=parseInt(h.slice(2,4),16), b=parseInt(h.slice(4,6),16); return `rgba(${r},${g},${b},0.15)`; };
 
+const DIV_MAP = {
+  "0": { full: "Pandas",   short: "P" },
+  "1": { full: "Shibas",   short: "S" },
+  "2": { full: "Unicorns", short: "U" },
+};
+const toDivFull = (x) => {
+  const k = String(x ?? "").trim();
+  if (DIV_MAP[k]) return DIV_MAP[k].full;
+  const hit = Object.values(DIV_MAP).find(v =>
+    v.full.toLowerCase() === k.toLowerCase() || v.short.toLowerCase() === k.toLowerCase()
+  );
+  return hit ? hit.full : k;
+};
+export const toDivShort = (x) => {
+  const k = String(x ?? "").trim();
+  if (DIV_MAP[k]) return DIV_MAP[k].short;
+  const hit = Object.values(DIV_MAP).find(v =>
+    v.full.toLowerCase() === k.toLowerCase() || v.short.toLowerCase() === k.toLowerCase()
+  );
+  return hit ? hit.short : (k ? k[0].toUpperCase() : "");
+};
+
 const lineColors=["#ef4444","#eab308","#22c55e","#3b82f6"]; const lineDashes=["","5 5"];
 
 export default function App(){
@@ -87,7 +109,13 @@ export default function App(){
 
   const divNameMap=useMemo(()=>{const m=new Map(); for(const r of divSeasonRows){ if(!r.season||!r.division_id) continue; if(!m.has(r.season)) m.set(r.season,new Map()); m.get(r.season).set(r.division_id,r.division_name||r.division_id);} return m;},[divSeasonRows]);
   const teamDivMap=useMemo(()=>{const m=new Map(); for(const r of teamDivRows){ if(!r.season||!r.team_id||!r.division_id) continue; m.set(`${r.season}__${r.team_id}`,r.division_id);} return m;},[teamDivRows]);
-  const getDivisionName=(team_id,season)=>{ if(!team_id||!season) return; const did=teamDivMap.get(`${season}__${team_id}`); if(!did) return; const by=divNameMap.get(season); return (by&&by.get(did))||did; };
+  const getDivisionName = (team_id, season) => {
+    if (!team_id || !season) return;
+    const did = teamDivMap.get(`${season}__${team_id}`);
+    if (!did) return;
+    const by = divNameMap.get(season);
+    return toDivFull((by && by.get(did)) || did);
+  };
 
   const summaryRows=useMemo(()=>{
     const out=[]; 
@@ -113,7 +141,7 @@ export default function App(){
     return out; 
   },[grouped,years,maxByYear,divNameMap,teamDivMap]);
 
-  const [sortKey,setSortKey]=useState("franchise");
+  const [sortKey,setSortKey]=useState("division");
   const avgStanding=(r)=>{ const vals=Object.values(r.yearMap).filter(v=>Number.isFinite(v)); return vals.length? vals.reduce((a,b)=>a+b,0)/vals.length : Infinity; };
   const sortedSummary=useMemo(()=>{
     const arr=summaryRows.slice();
@@ -191,7 +219,7 @@ export default function App(){
               <div className="relative">
                 {headerImgUrl? <img src={headerImgUrl} alt="HFL header art" className="h-24 md:h-28 w-auto rounded-md border border-slate-800 shadow shrink-0" /> : <div className="h-16 w-28 rounded-md border border-slate-800 bg-slate-800/40" />}
               </div>
-              <h1 className="text-3xl md:text-4xl font-black tracking-tight leading-tight">
+              <h1 className="text-[3.5rem] leading-[3rem] font-black tracking-tight">
                 <span className="block">Happy Fun League</span>
                 <span className="block"><span className="text-fuchsia-400">Records of Glory</span> & <span className="text-rose-400">Shame</span></span>
               </h1>
@@ -234,7 +262,7 @@ export default function App(){
             <>
               <section className="mb-10">
                 <div className="mb-3 flex items-center justify-between gap-3">
-                  <h2 className="text-xl font-bold">League Timeline</h2>
+                  <h2 className="text-xl font-bold">League Timeline (rolled-up by franchise)</h2>
                   <div>
                     <select value={sortKey} onChange={e=>setSortKey(e.target.value)} className="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-sm">
                       <option value="division">Sort: Division</option>
@@ -286,7 +314,7 @@ export default function App(){
                                 <td className="sticky left-40 z-10 bg-slate-950 p-2 border-b border-slate-800 w-36 min-w-[144px] truncate" title={r.current_owner}>{r.current_owner}</td>
                                 <td className="p-2 border-b border-slate-800 text-center">
                                   {r.current_division? (
-                                    <span className="px-2 py-0.5 rounded-full text-xs font-semibold border" style={{color:divPillColor,borderColor:divPillColor, backgroundColor:aBg(divPillColor)}} title={r.current_division}>{r.current_division}</span>
+                                    <span className="px-2 py-0.5 rounded-full text-xs font-semibold border" style={{color:divPillColor,borderColor:divPillColor, backgroundColor:aBg(divPillColor)}} title={r.current_division}>{toDivShort(r.current_division)}</span>
                                   ): <span className="text-slate-500">—</span>}
                                 </td>
                                 <td className="p-2 border-b border-slate-800 text-center font-semibold text-amber-300 bg-slate-900/60">{r.firsts}</td>
@@ -320,23 +348,25 @@ export default function App(){
               <section className="mb-8">
                 <h2 className="text-xl font-bold">Head-to-Head Arena</h2>
                 
-                <div className="grid md:grid-cols-[14rem_1fr] gap-4 items-start">
-                  <div className="rounded-xl border border-slate-800 p-3 bg-slate-900/60 w-56 shrink-0">
-                    <label className="text-xs uppercase tracking-wide text-slate-400">Focal Franchise</label>
-                    <select value={focalTeamId} onChange={e=>setFocalTeamId(e.target.value)} className="mt-1 w-full bg-slate-800 border border-slate-700 rounded px-2 py-1 text-sm">
-                      <option value="" disabled>Select franchise</option>
-                      {focalTeams.map(id=> <option key={id} value={id}>{getTeamName(id)}</option>)}
-                    </select>
-                    <div className="mt-3 max-h-64 overflow-auto space-y-1">
-                      {oppListForFocal.map(o=> (
-                        <label key={o} className={cn("flex items-center gap-2 px-2 py-1 rounded cursor-pointer border", (selectedOppIds.includes(o)||(!selectedOppIds.length&&defaultOppSelection.includes(o)))?"border-emerald-500/60 bg-emerald-900/20":"border-slate-800 hover:border-slate-700")}> 
-                          <input type="checkbox" checked={selectedOppIds.length?selectedOppIds.includes(o):defaultOppSelection.includes(o)} onChange={()=>setSelectedOppIds(prev=> prev.includes(o)? prev.filter(x=>x!==o):[...prev,o])} />
-                          <span className="text-sm leading-tight">vs {getTeamName(o)}</span>
-                        </label>
-                      ))}
+                <div className="space-y-3">
+                  <div className="rounded-xl border border-slate-800 p-3 bg-slate-900/60">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <label className="text-xs uppercase tracking-wide text-slate-400">Focal Franchise</label>
+                      <select value={focalTeamId} onChange={e=>setFocalTeamId(e.target.value)} className="w-60 bg-slate-800 border border-slate-700 rounded px-2 py-1 text-sm">
+                        <option value="" disabled>Select franchise</option>
+                        {focalTeams.map(id=> <option key={id} value={id}>{getTeamName(id)}</option>)}
+                      </select>
+                      <div className="flex flex-wrap gap-2 max-h-32 overflow-auto">
+                        {oppListForFocal.map(o=> (
+                          <label key={o} className={cn("flex items-center gap-2 px-2 py-1 rounded cursor-pointer border", (selectedOppIds.includes(o)||(!selectedOppIds.length&&defaultOppSelection.includes(o)))?"border-emerald-500/60 bg-emerald-900/20":"border-slate-800 hover:border-slate-700")}>
+                            <input type="checkbox" checked={selectedOppIds.length?selectedOppIds.includes(o):defaultOppSelection.includes(o)} onChange={()=>setSelectedOppIds(prev=> prev.includes(o)? prev.filter(x=>x!==o):[...prev,o])} />
+                            <span className="text-sm leading-tight">vs {getTeamName(o)}</span>
+                          </label>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  <div className="md:col-span-2 rounded-xl border border-slate-800 p-3 bg-slate-900/60 overflow-auto">
+                  <div className="rounded-xl border border-slate-800 p-3 bg-slate-900/60 overflow-auto">
                     <h3 className="font-semibold mb-2">Season Matrix</h3>
                     {(!focalTeamId||!h2hSeasons.length)? <p className="text-slate-400 text-sm">Choose a franchise.</p> : (
                       <table className="text-sm w-full">
