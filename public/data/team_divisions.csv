@@ -1,0 +1,159 @@
+season,team_id,team_name,owner_display,owner_first,owner_last,division_id,division_label
+2011,5,Arizona Evil Johnsons,,Chad,J.,0,A
+2011,6,Arizona Turtle Fishes,,Jeremiah,E.,0,A
+2011,7,Team Engelwoman,,Andrea,E.,0,A
+2011,8,Arizona Bullox,,Adrian,V.,0,A
+2011,1,Arizona Wombats,,Jeremiah,E.,1,B
+2011,2,Arizona Little Britches,,Adrian,V.,1,B
+2011,3,Arizona The Real AZ,,Chad,J.,1,B
+2011,4,Arizona Daikat,,Scott,F.,1,B
+2012,5,Obamaland Suicide Bombers,,Chad,J.,0,A
+2012,6,Arizona Mindyski,,Yutemia,F.,0,A
+2012,7,Team Engelwoman,,Andrea,E.,0,A
+2012,8,Arizona Bullox,,Adrian,V.,0,A
+2012,1,Arizona Wombats,,Jeremiah,E.,1,B
+2012,2,Arizona Little Britches,,Jamie,S.,1,B
+2012,3,Utah Lumberjacks,,James,J.,1,B
+2012,4,Arizona Daikat,,Scott,F.,1,B
+2013,3,Draper Big Dogs,,Paul,E.,0,A
+2013,5,Gorillas in the Midst,,Phil,R.,0,A
+2013,7,Team Engelwoman,,Andrea,E.,0,A
+2013,8,Arizona Bullox,,Adrian,V.,0,A
+2013,9,Maricopa Real Dragons,,Tara,W.,0,A
+2013,1,Arizona Wombats,,Jeremiah,E.,1,B
+2013,2,Arizona Little Britches,,Jamie,S.,1,B
+2013,4,Arizona Daikat,,Scott,F.,1,B
+2013,6,Tempe Vettes,,Glen,R.,1,B
+2013,10,Scottsdale Holy Warriors,,Russ,R.,1,B
+2014,3,Draper Big Dogs,,Paul,E.,0,A
+2014,5,Pray for Mojo,,Phil,R.,0,A
+2014,9,Maricopa Real Dragons,,Tara,W.,0,A
+2014,11,Slater Chatty Cathies,,Marliese,R.,0,A
+2014,1,Arizona Wombats,,Jeremiah,E.,1,B
+2014,2,Arizona Little Britches,,Jamie,S.,1,B
+2014,10,Scottsdale Holy Warriors,,Russ,R.,1,B
+2014,12,I Put Brady in the Corner,,Heather,R.,1,B
+2014,4,Arizona Daikat,,Scott,F.,2,C
+2014,6,Tempe Vettes,,Glen,R.,2,C
+2014,7,Team Engelwoman,,Andrea,E.,2,C
+2014,8,Arizona Bullox,,Adrian,V.,2,C
+2015,3,California Neutrals,,Niklas,J.,0,A
+2015,5,Pray for Mojo,,Phil,R.,0,A
+2015,9,Maricopa Real Dragons,,Tara,W.,0,A
+2015,11,Slater Chatty Cathies,,Marliese,R.,0,A
+2015,1,Arizona Wombats,,Jeremiah,E.,1,B
+2015,2,Arizona Little Britches,,Jamie,S.,1,B
+2015,10,Scottsdale Holy Warriors,,Russ,R.,1,B
+2015,12,California Crysanthemums,,Heather,R.,1,B
+2015,4,Arizona Daikat,,Scott,F.,2,C
+2015,6,Tempe Vettes,,Glen,R.,2,C
+2015,7,Team Engelwoman,,Andrea,E.,2,C
+2015,8,Arizona Bullox,,Adrian,V.,2,C
+2016,3,SoCal Smorgasbords,,Niklas,J.,0,A
+2016,5,Pray for Mojo,,Phil,R.,0,A
+2016,9,Maricopa Real Dragons,,Tara,W.,0,A
+2016,11,Slater Chatty Cathies,,Marliese,R.,0,A
+2016,1,Arizona Wombats,,Jeremiah,E.,1,B
+2016,2,Arizona Smol Puppers,,Alana,I.,1,B
+2016,10,Scottsdale Holy Warriors,,Joshua,S.,1,B
+2016,12,California Crysanthemums,,Heather,R.,1,B
+2016,4,Arizona Daikat,,Scott,F.,2,C
+2016,6,Tempe Tacos,,Glen,R.,2,C
+2016,7,Team Engelwoman,,Andrea,E.,2,C
+2016,8,Arizona Bullox,,Adrian,V.,2,C
+2017,3,SoCal Smorgasbords,,Niklas,J.,0,A
+2017,5,Pray for Mojo,,Phil,R.,0,A
+2017,9,Maricopa Real Dragons,,Tara,W.,0,A
+2017,11,Slater Chatty Cathies,,Marliese,R.,0,A
+2017,1,Arizona Wombats,,Jeremiah,E.,1,B
+2017,2,Arizona Smol Puppers,,Alana,I.,1,B
+2017,10,Scottsdale Holy Warriors,,Joshua,S.,1,B
+2017,12,California Crysanthemums,,Heather,R.,1,B
+2017,4,Arizona Daikat,,Scott,F.,2,C
+2017,6,Tempe Tacos,,Glen,R.,2,C
+2017,7,Team Engelwoman,,Andrea,E.,2,C
+2017,8,Arizona Bullox,,Adrian,V.,2,C
+2018,3,SoCal Smorgasbords,,Niklas,J.,0,A
+2018,5,Pray for Mojo,,Phil,R.,0,A
+2018,9,Maricopa Real Dragons,,Tara,W.,0,A
+2018,11,Slater Chatty Cathies,,Marliese,R.,0,A
+2018,1,Arizona Wombats,,Jeremiah,E.,1,B
+2018,2,Arizona Smol Puppers,,Alana,I.,1,B
+2018,10,Scottsdale Holy Warriors,,Joshua,S.,1,B
+2018,12,California Crysanthemums,,Heather,R.,1,B
+2018,4,Arizona Daikat,,Scott,F.,2,C
+2018,6,Tempe Tacos,,Glen,R.,2,C
+2018,7,Team Engelwoman,,Andrea,E.,2,C
+2018,8,Arizona Bullox,,Adrian,V.,2,C
+2019,3,SoCal Smorgasbords,,Niklas,J.,0,A
+2019,5,Pray for Mojo,,Phil,R.,0,A
+2019,9,Maricopa Real Dragons,,Tara,W.,0,A
+2019,11,Slater Chatty Cathies,,Marliese,R.,0,A
+2019,1,Arizona Wombats,,Jeremiah,E.,1,B
+2019,2,Arizona Smol Puppers,,Alana,I.,1,B
+2019,10,SB Holy Warriors,,Joshua,S.,1,B
+2019,12,California Crysanthemums,,Heather,R.,1,B
+2019,4,Arizona Daikat,,Scott,F.,2,C
+2019,6,Tempe Tacos,,Glen,R.,2,C
+2019,7,Team Engelwoman,,Andrea,E.,2,C
+2019,8,Arizona Bullox,,Adrian,V.,2,C
+2020,3,SoCal Smorgasbords,,Niklas,J.,0,A
+2020,5,Pray for Mojo,,Phil,R.,0,A
+2020,9,Maricopa Real Dragons,,Tara,W.,0,A
+2020,11,Slater Chatty Cathies,,Marliese,R.,0,A
+2020,1,Arizona Wombats,,Jeremiah,E.,1,B
+2020,2,Arizona Smol Puppers,,Alana,I.,1,B
+2020,10,SB Holy Warriors,,Joshua,S.,1,B
+2020,12,San Esteban Rockers,,Tyson,P.,1,B
+2020,4,Arizona Daikat,,Scott,F.,2,C
+2020,6,Tempe Tacos,,Glen,R.,2,C
+2020,7,Team Engelwoman,,Andrea,E.,2,C
+2020,8,Arizona Bullox,,Adrian,V.,2,C
+2021,3,Philly Fly Eagles Fly,,Niklas,J.,0,A
+2021,5,Pray for Mojo,,Phil,R.,0,A
+2021,9,Arizona Cardinals,,Justin,G.,0,A
+2021,11,Slater Chatty Cathies,,Marliese,R.,0,A
+2021,1,Arizona Wombats,,Jeremiah,E.,1,B
+2021,2,Arizona Smol Puppers,,Alana,I.,1,B
+2021,10,SB Holy Warriors,,Joshua,S.,1,B
+2021,12,San Esteban Rockers,,Tyson,P.,1,B
+2021,4,Arizona Daikat,,Scott,F.,2,C
+2021,6,Tempe 2 and 12s,,Glen,R.,2,C
+2021,7,Team Engelwoman,,Andrea,E.,2,C
+2021,8,Arizona Bullox,,Adrian,V.,2,C
+2022,3,Philly Fly Eagles Fly,,Niklas,J.,0,A
+2022,5,Pray for Mojo,,Phil,R.,0,A
+2022,9,Arizona Cardinals,,Justin,G.,0,A
+2022,11,Slater Chatty Cathies,,Marliese,R.,0,A
+2022,1,Arizona Wombats,,Jeremiah,E.,1,B
+2022,2,Arizona Smol Puppers,,Alana,I.,1,B
+2022,10,SB Holy Warriors,,Joshua,S.,1,B
+2022,12,San Esteban Rockers,,Tyson,P.,1,B
+2022,4,Arizona Daikat,,Scott,F.,2,C
+2022,6,Tempe 2 and 12s,,Glen,R.,2,C
+2022,7,Team Engelwoman,,Andrea,E.,2,C
+2022,8,Arizona Bullox,,Adrian,V.,2,C
+2023,3,Philly Fly Eagles Fly,,Niklas,J.,0,A
+2023,5,Pray for Mojo,,Phil,R.,0,A
+2023,9,Arizona Cardinals,,Justin,G.,0,A
+2023,11,Slater Chatty Cathies,,Marliese,R.,0,A
+2023,1,Arizona Wombats,,Jeremiah,E.,1,B
+2023,2,Arizona Smol Puppers,,Alana,I.,1,B
+2023,10,SB Holy Warriors,,Joshua,S.,1,B
+2023,12,San Esteban Rockers,,Tyson,P.,1,B
+2023,4,Missouri Daikat,,Scott,F.,2,C
+2023,6,Tempe 2 and 12s,,Glen,R.,2,C
+2023,7,Team Engelwoman,,Andrea,E.,2,C
+2023,8,Arizona Bullox,,Adrian,V.,2,C
+2024,3,Philly Fly Eagles Fly,,Niklas,J.,0,A
+2024,5,Pray for Mojo,,Phil,R.,0,A
+2024,9,Three Peat,,Justin,G.,0,A
+2024,11,Slater Chatty Cathies,,Marliese,R.,0,A
+2024,1,Arizona Wombats,,Jeremiah,E.,1,B
+2024,2,Arizona Smol Puppers,,Alana,I.,1,B
+2024,10,SB Holy Warriors,,Joshua,S.,1,B
+2024,12,San Esteban Rockers,,Tyson,P.,1,B
+2024,4,Missouri Daikat,,Scott,F.,2,C
+2024,6,Tempe Trout,,Glen,R.,2,C
+2024,7,Team Engelwoman,,Andrea,E.,2,C
+2024,8,Arizona Bullox,,Adrian,V.,2,C

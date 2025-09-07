@@ -1,0 +1,40 @@
+season,division_id,division_label,team_count,team_ids,team_names
+2011,0,A,4,"5,6,7,8",Arizona Evil Johnsons; Arizona Turtle Fishes; Team Engelwoman; Arizona Bullox
+2011,1,B,4,"1,2,3,4",Arizona Wombats; Arizona Little Britches; Arizona The Real AZ; Arizona Daikat
+2012,0,A,4,"5,6,7,8",Obamaland Suicide Bombers; Arizona Mindyski; Team Engelwoman; Arizona Bullox
+2012,1,B,4,"1,2,3,4",Arizona Wombats; Arizona Little Britches; Utah Lumberjacks; Arizona Daikat
+2013,0,A,5,"3,5,7,8,9",Draper Big Dogs; Gorillas in the Midst; Team Engelwoman; Arizona Bullox; Maricopa Real Dragons
+2013,1,B,5,"1,2,4,6,10",Arizona Wombats; Arizona Little Britches; Arizona Daikat; Tempe Vettes; Scottsdale Holy Warriors
+2014,0,A,4,"3,5,9,11",Draper Big Dogs; Pray for Mojo; Maricopa Real Dragons; Slater Chatty Cathies
+2014,1,B,4,"1,2,10,12",Arizona Wombats; Arizona Little Britches; Scottsdale Holy Warriors; I Put Brady in the Corner
+2014,2,C,4,"4,6,7,8",Arizona Daikat; Tempe Vettes; Team Engelwoman; Arizona Bullox
+2015,0,A,4,"3,5,9,11",California Neutrals; Pray for Mojo; Maricopa Real Dragons; Slater Chatty Cathies
+2015,1,B,4,"1,2,10,12",Arizona Wombats; Arizona Little Britches; Scottsdale Holy Warriors; California Crysanthemums
+2015,2,C,4,"4,6,7,8",Arizona Daikat; Tempe Vettes; Team Engelwoman; Arizona Bullox
+2016,0,A,4,"3,5,9,11",SoCal Smorgasbords; Pray for Mojo; Maricopa Real Dragons; Slater Chatty Cathies
+2016,1,B,4,"1,2,10,12",Arizona Wombats; Arizona Smol Puppers; Scottsdale Holy Warriors; California Crysanthemums
+2016,2,C,4,"4,6,7,8",Arizona Daikat; Tempe Tacos; Team Engelwoman; Arizona Bullox
+2017,0,A,4,"3,5,9,11",SoCal Smorgasbords; Pray for Mojo; Maricopa Real Dragons; Slater Chatty Cathies
+2017,1,B,4,"1,2,10,12",Arizona Wombats; Arizona Smol Puppers; Scottsdale Holy Warriors; California Crysanthemums
+2017,2,C,4,"4,6,7,8",Arizona Daikat; Tempe Tacos; Team Engelwoman; Arizona Bullox
+2018,0,A,4,"3,5,9,11",SoCal Smorgasbords; Pray for Mojo; Maricopa Real Dragons; Slater Chatty Cathies
+2018,1,B,4,"1,2,10,12",Arizona Wombats; Arizona Smol Puppers; Scottsdale Holy Warriors; California Crysanthemums
+2018,2,C,4,"4,6,7,8",Arizona Daikat; Tempe Tacos; Team Engelwoman; Arizona Bullox
+2019,0,A,4,"3,5,9,11",SoCal Smorgasbords; Pray for Mojo; Maricopa Real Dragons; Slater Chatty Cathies
+2019,1,B,4,"1,2,10,12",Arizona Wombats; Arizona Smol Puppers; SB Holy Warriors; California Crysanthemums
+2019,2,C,4,"4,6,7,8",Arizona Daikat; Tempe Tacos; Team Engelwoman; Arizona Bullox
+2020,0,A,4,"3,5,9,11",SoCal Smorgasbords; Pray for Mojo; Maricopa Real Dragons; Slater Chatty Cathies
+2020,1,B,4,"1,2,10,12",Arizona Wombats; Arizona Smol Puppers; SB Holy Warriors; San Esteban Rockers
+2020,2,C,4,"4,6,7,8",Arizona Daikat; Tempe Tacos; Team Engelwoman; Arizona Bullox
+2021,0,A,4,"3,5,9,11",Philly Fly Eagles Fly; Pray for Mojo; Arizona Cardinals; Slater Chatty Cathies
+2021,1,B,4,"1,2,10,12",Arizona Wombats; Arizona Smol Puppers; SB Holy Warriors; San Esteban Rockers
+2021,2,C,4,"4,6,7,8",Arizona Daikat; Tempe 2 and 12s; Team Engelwoman; Arizona Bullox
+2022,0,A,4,"3,5,9,11",Philly Fly Eagles Fly; Pray for Mojo; Arizona Cardinals; Slater Chatty Cathies
+2022,1,B,4,"1,2,10,12",Arizona Wombats; Arizona Smol Puppers; SB Holy Warriors; San Esteban Rockers
+2022,2,C,4,"4,6,7,8",Arizona Daikat; Tempe 2 and 12s; Team Engelwoman; Arizona Bullox
+2023,0,A,4,"3,5,9,11",Philly Fly Eagles Fly; Pray for Mojo; Arizona Cardinals; Slater Chatty Cathies
+2023,1,B,4,"1,2,10,12",Arizona Wombats; Arizona Smol Puppers; SB Holy Warriors; San Esteban Rockers
+2023,2,C,4,"4,6,7,8",Missouri Daikat; Tempe 2 and 12s; Team Engelwoman; Arizona Bullox
+2024,0,A,4,"3,5,9,11",Philly Fly Eagles Fly; Pray for Mojo; Three Peat; Slater Chatty Cathies
+2024,1,B,4,"1,2,10,12",Arizona Wombats; Arizona Smol Puppers; SB Holy Warriors; San Esteban Rockers
+2024,2,C,4,"4,6,7,8",Missouri Daikat; Tempe Trout; Team Engelwoman; Arizona Bullox
