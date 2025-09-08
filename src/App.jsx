@@ -1,6 +1,9 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Papa from "papaparse";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from "recharts";
+import {
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  ResponsiveContainer, BarChart, Bar, Cell
+} from "recharts";
 
 const base = (import.meta && import.meta.env && import.meta.env.BASE_URL) ? import.meta.env.BASE_URL : "/";
 
@@ -60,7 +63,6 @@ export default function App(){
   const [podiumOnly,setPodiumOnly]=useState(false); const [showHistory,setShowHistory]=useState(false); const [lastStyle,setLastStyle]=useState("skull");
   const [selectedTeamIds,setSelectedTeamIds]=useState([]);
   const [headerImgUrl]=useState(()=>{try{return localStorage.getItem("hfl_header_art")||(`${base}assets/hfl-header-gritty.png`);}catch{return `${base}assets/hfl-header-gritty.png`;}});
-
   const [h2hSummary,setH2hSummary]=useState([]); const [h2hGames,setH2hGames]=useState([]);
   const [focalTeamId,setFocalTeamId]=useState(""); const [selectedOppIds,setSelectedOppIds]=useState([]);
 
@@ -109,13 +111,7 @@ export default function App(){
 
   const divNameMap=useMemo(()=>{const m=new Map(); for(const r of divSeasonRows){ if(!r.season||!r.division_id) continue; if(!m.has(r.season)) m.set(r.season,new Map()); m.get(r.season).set(r.division_id,r.division_name||r.division_id);} return m;},[divSeasonRows]);
   const teamDivMap=useMemo(()=>{const m=new Map(); for(const r of teamDivRows){ if(!r.season||!r.team_id||!r.division_id) continue; m.set(`${r.season}__${r.team_id}`,r.division_id);} return m;},[teamDivRows]);
-  const getDivisionName = (team_id, season) => {
-    if (!team_id || !season) return;
-    const did = teamDivMap.get(`${season}__${team_id}`);
-    if (!did) return;
-    const by = divNameMap.get(season);
-    return toDivFull((by && by.get(did)) || did);
-  };
+  const getDivisionName=(team_id,season)=>{ if(!team_id||!season) return; const did=teamDivMap.get(`${season}__${team_id}`); if(!did) return; const by=divNameMap.get(season); return toDivFull((by&&by.get(did))||did); };
 
   const summaryRows=useMemo(()=>{
     const out=[]; 
@@ -141,6 +137,7 @@ export default function App(){
     return out; 
   },[grouped,years,maxByYear,divNameMap,teamDivMap]);
 
+  // default sort – you changed to "division", keeping that here
   const [sortKey,setSortKey]=useState("division");
   const avgStanding=(r)=>{ const vals=Object.values(r.yearMap).filter(v=>Number.isFinite(v)); return vals.length? vals.reduce((a,b)=>a+b,0)/vals.length : Infinity; };
   const sortedSummary=useMemo(()=>{
@@ -190,8 +187,20 @@ export default function App(){
 
   const h2hMatrix=useMemo(()=> oppListForFocal.map(opp=>{ const cells={}; for(const s of h2hSeasons){ const rec=h2hIndex.get(`${s}__${focalTeamId}__${opp}`); if(!rec){ cells[s]={txt:"",pct:undefined,div:getDivisionName(opp,s)}; continue; } const g=(rec.wins||0)+(rec.losses||0)+(rec.ties||0); const pct=g?(rec.wins+0.5*(rec.ties||0))/g:undefined; const txt=g?`${rec.wins}-${rec.losses}${rec.ties?`-${rec.ties}`:``}`:""; cells[s]={txt,pct,div:getDivisionName(opp,s)};} return {opp,cells}; }),[oppListForFocal,h2hSeasons,h2hIndex,focalTeamId,teamDivRows,divSeasonRows]);
 
-  const defaultOppSelection=useMemo(()=>{ const arr=oppListForFocal.map(opp=>{ let games=0; for(const s of h2hSeasons){ const r=h2hIndex.get(`${s}__${focalTeamId}__${opp}`); if(r) games+=(r.wins||0)+(r.losses||0)+(r.ties||0);} return {opp,games}; }); arr.sort((a,b)=>b.games-a.games); return arr.slice(0,4).map(x=>x.opp); },[oppListForFocal,h2hSeasons,h2hIndex,focalTeamId]);
-  const oppSelection=selectedOppIds.length?selectedOppIds:defaultOppSelection;
+  // Seed ONE random opponent once per focal team; never auto-reseed if user clears all
+  const seedRef = useRef({ teamId: null, seeded: false });
+  useEffect(()=>{
+    if (seedRef.current.teamId !== focalTeamId) {
+      seedRef.current = { teamId: focalTeamId, seeded: false };
+    }
+    if (!seedRef.current.seeded && focalTeamId && oppListForFocal.length) {
+      const rand = oppListForFocal[Math.floor(Math.random()*oppListForFocal.length)];
+      setSelectedOppIds([rand]);
+      seedRef.current.seeded = true;
+    }
+  },[focalTeamId, oppListForFocal]);
+
+  const oppSelection = selectedOppIds;
 
   const h2hTrendData=useMemo(()=>{ if(!focalTeamId) return []; return h2hSeasons.map(s=>{ const row={season:s}; for(const o of oppSelection){ const rec=h2hIndex.get(`${s}__${focalTeamId}__${o}`); if(!rec){ row[o]=null; continue;} const g=(rec.wins||0)+(rec.losses||0)+(rec.ties||0); row[o]=g?(rec.wins+0.5*(rec.ties||0))/g:null;} return row; }); },[focalTeamId,h2hSeasons,h2hIndex,oppSelection]);
 
@@ -201,8 +210,8 @@ export default function App(){
 
   const h2hRows = useMemo(() => (
     oppListForFocal.map((opp, idx) => (
-      <tr key={opp} className={idx%2?"bg-slate-950":"bg-slate-900/40"}>
-        <td className="sticky left-0 bg-inherit z-10 p-2 border-b border-slate-800 whitespace-nowrap">{getTeamName(opp)}</td>
+      <tr key={opp} className={idx%2?"bg-slate-950":"bg-slate-900/50"}>
+        <td className="sticky left-0 bg-slate-950 z-10 p-2 border-b border-slate-800 whitespace-nowrap">{getTeamName(opp)}</td>
         {h2hSeasons.map(s=>{ const c=(h2hMatrix.find(r=>r.opp===opp)?.cells?.[s])||{txt:"",pct:undefined,div:undefined}; let cls="text-slate-300"; const p=c.pct; if(p===undefined) cls="text-slate-500/40"; else if(p>0.66) cls="bg-emerald-700/40 text-emerald-100"; else if(p>0.5) cls="bg-emerald-600/30 text-emerald-100"; else if(p===0.5) cls="bg-slate-600/30"; else if(p>=0.33) cls="bg-rose-700/30 text-rose-100"; else cls="bg-rose-800/40 text-rose-100"; const col=c.div? divColor(c.div):undefined; return (
           <td key={s} className={cn("p-2 text-center border-b border-slate-800 min-w-[96px] w-24",cls)} style={col?{boxShadow:`inset 0 3px 0 0 ${col}`} : undefined} title={c.div||undefined}>{c.txt}</td>
         );})}
@@ -212,12 +221,12 @@ export default function App(){
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
-      <header className="md:sticky md:top-0 z-50 bg-slate-900/95 border-b border-slate-800">
+      <header className="xl:sticky xl:top-0 z-50 bg-slate-900/95 border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-start md:items-center justify-between gap-6">
             <div className="flex items-start gap-4 min-w-0">
               <div className="relative">
-                {headerImgUrl? <img src={headerImgUrl} alt="HFL header art" className="h-14 sm:h-16 md:h-28 w-auto rounded-md border border-slate-800 shadow shrink-0" /> : <div className="h-16 w-28 rounded-md border border-slate-800 bg-slate-800/40" />}
+                {headerImgUrl? <img src={headerImgUrl} alt="HFL header art" className="h-24 md:h-28 w-auto rounded-md border border-slate-800 shadow shrink-0" /> : <div className="h-16 w-28 rounded-md border border-slate-800 bg-slate-800/40" />}
               </div>
               <h1 className="text-[2rem] leading-[2.25rem] md:text-[3.5rem] md:leading-[3rem] font-black tracking-tight">
                 <span className="block">Happy Fun League</span>
@@ -234,15 +243,6 @@ export default function App(){
                   <input type="checkbox" className="peer sr-only" checked={showHistory} onChange={e=>setShowHistory(e.target.checked)} />
                   <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 peer-checked:bg-cyan-500/20 peer-checked:border-cyan-400 text-sm">History Nerd Mode</span>
                 </label>
-              </div>
-              <div className="flex gap-3 items-center justify-end">
-                <div>
-                  <select value={lastStyle} onChange={e=>setLastStyle(e.target.value)} className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm cursor-pointer">
-                    <option value="text">Style: LAST</option>
-                    <option value="cry">Style: 😭</option>
-                    <option value="skull">Style: 💀</option>
-                  </select>
-                </div>
               </div>
             </div>
           </div>
@@ -263,7 +263,7 @@ export default function App(){
               <section className="mb-10">
                 <div className="mb-3 flex items-center justify-between gap-3">
                   <h2 className="text-xl font-bold">League Timeline (rolled-up by franchise)</h2>
-                  <div>
+                  <div className="flex items-center gap-2">
                     <select value={sortKey} onChange={e=>setSortKey(e.target.value)} className="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-sm">
                       <option value="division">Sort: Division</option>
                       <option value="avg">Sort: Overall Standing</option>
@@ -273,6 +273,11 @@ export default function App(){
                       <option value="podiums">Sort: Most Podiums</option>
                       <option value="lasts">Sort: Most Lasts</option>
                     </select>
+                    <select value={lastStyle} onChange={e=>setLastStyle(e.target.value)} className="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-sm cursor-pointer">
+                      <option value="text">Style: LAST</option>
+                      <option value="cry">Style: 😭</option>
+                      <option value="skull">Style: 💀</option>
+                    </select>
                   </div>
                 </div>
                 <div className="rounded-xl border border-slate-800 overflow-hidden">
@@ -281,7 +286,7 @@ export default function App(){
                       <thead className="bg-slate-900">
                         <tr>
                           <th className="sticky left-0 z-30 bg-slate-900 border-b border-slate-800 p-2 text-left w-40 min-w-[160px]">Name</th>
-                          <th className="sticky left-40 z-20 bg-slate-900 border-b border-slate-800 p-2 text-left w-36 min-w-[144px]">Owner</th>
+                          <th className="bg-slate-900 border-b border-slate-800 p-2 text-left w-36 min-w-[144px]">Owner</th>
                           <th className="bg-slate-900 border-b border-slate-800 p-2 text-center w-24">Div</th>
                           <th className="bg-slate-900 border-b border-slate-800 p-2 text-center">1st</th>
                           <th className="bg-slate-900 border-b border-slate-800 p-2 text-center">2nd</th>
@@ -311,7 +316,7 @@ export default function App(){
                             <React.Fragment key={r.team_id}>
                               <tr className={cn(idx%2?"bg-slate-950":"bg-slate-900/50")}> 
                                 <td className="sticky left-0 z-10 bg-slate-950 p-2 border-b border-slate-800 w-40 min-w-[160px] truncate" title={r.current_name}>{r.current_name}</td>
-                                <td className="sticky left-40 z-10 bg-slate-950 p-2 border-b border-slate-800 w-36 min-w-[144px] truncate" title={r.current_owner}>{r.current_owner}</td>
+                                <td className="p-2 border-b border-slate-800 w-36 min-w-[144px] truncate" title={r.current_owner}>{r.current_owner}</td>
                                 <td className="p-2 border-b border-slate-800 text-center">
                                   {r.current_division? (
                                     <span className="px-2 py-0.5 rounded-full text-xs font-semibold border" style={{color:divPillColor,borderColor:divPillColor, backgroundColor:aBg(divPillColor)}} title={r.current_division}>{toDivShort(r.current_division)}</span>
@@ -328,7 +333,7 @@ export default function App(){
                               {showHistory && segs.map((seg,sidx)=> (
                                 <tr key={`${r.team_id}_seg_${sidx}`} className={cn(idx%2?"bg-slate-950":"bg-slate-900/50")}> 
                                   <td className="sticky left-0 z-10 bg-slate-950 p-2 border-b border-slate-800 text-slate-300 w-40 min-w-[160px] truncate" title={seg.team_name}>↳ {seg.team_name}</td>
-                                  <td className="sticky left-40 z-10 bg-slate-950 p-2 border-b border-slate-800 text-slate-300 w-36 min-w-[144px] truncate">{seg.owner} <span className="text-slate-500">({seg.start}-{seg.end})</span></td>
+                                  <td className="p-2 border-b border-slate-800 text-slate-300 w-36 min-w-[144px] truncate">{seg.owner} <span className="text-slate-500">({seg.start}-{seg.end})</span></td>
                                   <td className="p-2 border-b border-slate-800 text-center" />
                                   <td className="p-2 border-b border-slate-800 text-center bg-slate-900/60" colSpan={4} />
                                   {years.map(y=>{ const v=seg.yearVals[y]; const active=Number.isFinite(v); const podium=v===1||v===2||v===3; const isLast=maxByYear.get(y)===v; const faded=podiumOnly&&!podium&&!isLast; const color=podium? (v===1?"text-yellow-300":v===2?"text-slate-200":"text-amber-600") : isLast?"text-rose-400":"text-slate-400"; const divName=getDivisionName(r.team_id,y); const col=divColor(String(divName||"")); return (
@@ -347,33 +352,57 @@ export default function App(){
 
               <section className="mb-8">
                 <h2 className="text-xl font-bold">Head-to-Head Arena</h2>
-                
-                <div className="space-y-3">
-                  <div className="rounded-xl border border-slate-800 p-3 bg-slate-900/60">
-                    <div className="flex flex-wrap items-center gap-3">
+
+                <div className="rounded-xl border border-slate-800 p-3 bg-slate-900/60 mt-2">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex items-center gap-2">
                       <label className="text-xs uppercase tracking-wide text-slate-400">Focal Franchise</label>
                       <select value={focalTeamId} onChange={e=>setFocalTeamId(e.target.value)} className="w-60 bg-slate-800 border border-slate-700 rounded px-2 py-1 text-sm">
                         <option value="" disabled>Select franchise</option>
                         {focalTeams.map(id=> <option key={id} value={id}>{getTeamName(id)}</option>)}
                       </select>
-                      <div className="flex flex-wrap gap-2 max-h-32 overflow-auto">
-                        {oppListForFocal.map(o=> (
-                          <label key={o} className={cn("flex items-center gap-2 px-2 py-1 rounded cursor-pointer border", (selectedOppIds.includes(o)||(!selectedOppIds.length&&defaultOppSelection.includes(o)))?"border-emerald-500/60 bg-emerald-900/20":"border-slate-800 hover:border-slate-700")}>
-                            <input type="checkbox" checked={selectedOppIds.length?selectedOppIds.includes(o):defaultOppSelection.includes(o)} onChange={()=>setSelectedOppIds(prev=> prev.includes(o)? prev.filter(x=>x!==o):[...prev,o])} />
-                            <span className="text-sm leading-tight">vs {getTeamName(o)}</span>
-                          </label>
-                        ))}
-                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {["Pandas","Shibas","Unicorns"].map(name=>{
+                        const c = divColor(name);
+                        return (
+                          <span key={name} className="px-2 py-0.5 rounded-full text-xs font-semibold border" style={{color:c,borderColor:c,backgroundColor:aBg(c)}}>{name}</span>
+                        );
+                      })}
                     </div>
                   </div>
-                  <div className="rounded-xl border border-slate-800 p-3 bg-slate-900/60 overflow-auto">
-                    <h3 className="font-semibold mb-2">Season Matrix</h3>
-                    {(!focalTeamId||!h2hSeasons.length)? <p className="text-slate-400 text-sm">Choose a franchise.</p> : (
-                      <table className="text-sm w-full">
-                        <thead><tr><th className="sticky left-0 bg-slate-900 z-10 p-2 text-left border-b border-slate-800">Opponent</th>{h2hSeasons.map(s=> <th key={s} className="p-2 text-center border-b border-slate-800 min-w-[96px] w-24">{s}</th>)}</tr></thead>
-                        <tbody>{h2hRows}</tbody>
-                      </table>
-                    )}
+                </div>
+
+                <div className="rounded-xl border border-slate-800 p-3 bg-slate-900/60 overflow-auto mt-3">
+                  <h3 className="font-semibold mb-2">Season Matrix</h3>
+                  {(!focalTeamId||!h2hSeasons.length)? <p className="text-slate-400 text-sm">Choose a franchise.</p> : (
+                    <table className="text-sm w-full">
+                      <thead>
+                        <tr>
+                          <th className="sticky left-0 bg-slate-900 z-20 p-2 text-left border-b border-slate-800">Opponent</th>
+                          {h2hSeasons.map(s=> <th key={s} className="p-2 text-center border-b border-slate-800 min-w-[96px] w-24">{s}</th>)}
+                        </tr>
+                      </thead>
+                      <tbody>{h2hRows}</tbody>
+                    </table>
+                  )}
+                </div>
+
+                <div className="rounded-xl border border-slate-800 p-3 bg-slate-900/60 mt-3">
+                  <h3 className="font-semibold mb-2">Opponents to Trend</h3>
+                  <div className="flex flex-wrap gap-2 max-h-48 overflow-auto">
+                    {oppListForFocal.map(o=> (
+                      <label key={o} className={cn("flex items-center gap-2 px-2 py-1 rounded cursor-pointer border", selectedOppIds.includes(o)?"border-emerald-500/60 bg-emerald-900/20":"border-slate-800 hover:border-slate-700")}>
+                        <input
+                          type="checkbox"
+                          checked={selectedOppIds.includes(o)}
+                          onChange={()=>{
+                            setSelectedOppIds(prev=> prev.includes(o)? prev.filter(x=>x!==o):[...prev,o]);
+                          }}
+                        />
+                        <span className="text-sm leading-tight">vs {getTeamName(o)}</span>
+                      </label>
+                    ))}
                   </div>
                 </div>
 
@@ -384,9 +413,14 @@ export default function App(){
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={h2hTrendData} margin={{left:12,right:12,top:12,bottom:12}}>
                           <CartesianGrid strokeDasharray="2 3" strokeOpacity={0.3} />
-                          <XAxis dataKey="season" tick={{fill:"#cbd5e1"}} stroke="#64748b" />
+                          <XAxis dataKey="season" tick={{fill:"#cbd5e1"}} stroke="#64748b" angle={-45} textAnchor="end" height={50} />
                           <YAxis tick={{fill:"#cbd5e1"}} stroke="#64748b" domain={[0,1]} ticks={[0,0.25,0.5,0.75,1]} />
-                          <Tooltip contentStyle={{background:"#0f172a",border:"1px solid #1f2937",color:"#e2e8f0"}} formatter={v=> v==null?"—":(v*100).toFixed(0)+"%"} />
+                          <Tooltip
+                            contentStyle={{background:"#0f172a",border:"1px solid #1f2937"}}
+                            itemStyle={{color:"#e2e8f0"}}
+                            labelStyle={{color:"#e2e8f0"}}
+                            formatter={v=> v==null?"—":(v*100).toFixed(0)+"%"}
+                          />
                           <Legend wrapperStyle={{color:"#e2e8f0"}} />
                           {oppSelection.map((o,idx)=> <Line key={o} type="monotone" dataKey={o} name={`vs ${getTeamName(o)}`} stroke={lineColors[idx%lineColors.length]} strokeOpacity={0.95} strokeWidth={2} dot={{r:2}} strokeDasharray={lineDashes[Math.floor(idx/lineColors.length)%lineDashes.length]} connectNulls />)}
                         </LineChart>
@@ -401,9 +435,16 @@ export default function App(){
                           <CartesianGrid strokeDasharray="2 3" strokeOpacity={0.3} />
                           <XAxis type="number" domain={diffExtent} tick={{fill:"#cbd5e1"}} stroke="#64748b" />
                           <YAxis type="category" dataKey="label" width={yAxisWidth} interval={0} tickMargin={6} tick={{ fill: "#cbd5e1" }} tickFormatter={(v)=>String(v).replace(/ /g,'\u00A0')} stroke="#64748b" />
-                          <Tooltip contentStyle={{background:"#0f172a",border:"1px solid #1f2937",color:"#e2e8f0"}} formatter={(v,n,p)=>[v,p&&p.payload?`vs ${p.payload.label}`:""]} />
+                          <Tooltip
+                            contentStyle={{background:"#0f172a",border:"1px solid #1f2937"}}
+                            itemStyle={{color:"#e2e8f0"}}
+                            labelStyle={{color:"#e2e8f0"}}
+                            formatter={(v,n,p)=>[v,p&&p.payload?`vs ${p.payload.label}`:""]}
+                          />
                           <Legend wrapperStyle={{color:"#e2e8f0"}} />
-                          <Bar dataKey="diff" name="Win-Loss Diff" fill="#22c55e" />
+                          <Bar dataKey="diff" name="Win-Loss Diff" fill="#22c55e">
+                            {h2hAllTimeBars.map((d,idx)=>(<Cell key={`cell-${idx}`} fill={d.diff>=0?"#22c55e":"#ef4444"} />))}
+                          </Bar>
                         </BarChart>
                       </ResponsiveContainer>
                     </div>
@@ -430,7 +471,7 @@ export default function App(){
                       <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={chartData} margin={{left:12,right:12,top:12,bottom:12}}>
                           <CartesianGrid strokeDasharray="2 3" strokeOpacity={0.3} />
-                          <XAxis dataKey="year" tick={{fill:"#cbd5e1"}} stroke="#64748b" />
+                          <XAxis dataKey="year" tick={{fill:"#cbd5e1"}} stroke="#64748b" angle={-45} textAnchor="end" height={50} />
                           <YAxis tick={{fill:"#cbd5e1"}} stroke="#64748b" allowDecimals={false} domain={[yMeta.domainMax,1]} ticks={yMeta.ticks} reversed />
                           <Tooltip contentStyle={{background:"#0f172a",border:"1px solid #1f2937",color:"#e2e8f0"}} />
                           <Legend wrapperStyle={{color:"#e2e8f0"}} />
