@@ -1,0 +1,32 @@
+{
+  "trend": [
+    {
+      "date": "W01",
+      "value": 929.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 929.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 77.42
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Arizona Wombats",
+      "Value": 96.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Arizona Smol Puppers vs SB Holy Warriors",
+      "Value": 23.0
+    }
+  ],
+  "league_id": 1148104,
+  "season": 2025,
+  "week": 1,
+  "generated_at": "2025-09-10 22:06 MST"
+}

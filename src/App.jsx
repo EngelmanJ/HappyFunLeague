@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import Papa from "papaparse";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
@@ -137,7 +138,6 @@ export default function App(){
     return out; 
   },[grouped,years,maxByYear,divNameMap,teamDivMap]);
 
-  // default sort – you changed to "division", keeping that here
   const [sortKey,setSortKey]=useState("division");
   const avgStanding=(r)=>{ const vals=Object.values(r.yearMap).filter(v=>Number.isFinite(v)); return vals.length? vals.reduce((a,b)=>a+b,0)/vals.length : Infinity; };
   const sortedSummary=useMemo(()=>{
@@ -187,7 +187,6 @@ export default function App(){
 
   const h2hMatrix=useMemo(()=> oppListForFocal.map(opp=>{ const cells={}; for(const s of h2hSeasons){ const rec=h2hIndex.get(`${s}__${focalTeamId}__${opp}`); if(!rec){ cells[s]={txt:"",pct:undefined,div:getDivisionName(opp,s)}; continue; } const g=(rec.wins||0)+(rec.losses||0)+(rec.ties||0); const pct=g?(rec.wins+0.5*(rec.ties||0))/g:undefined; const txt=g?`${rec.wins}-${rec.losses}${rec.ties?`-${rec.ties}`:``}`:""; cells[s]={txt,pct,div:getDivisionName(opp,s)};} return {opp,cells}; }),[oppListForFocal,h2hSeasons,h2hIndex,focalTeamId,teamDivRows,divSeasonRows]);
 
-  // Seed ONE random opponent once per focal team; never auto-reseed if user clears all
   const seedRef = useRef({ teamId: null, seeded: false });
   useEffect(()=>{
     if (seedRef.current.teamId !== focalTeamId) {
@@ -235,14 +234,13 @@ export default function App(){
             </div>
             <div className="flex flex-col items-end gap-2 max-w-full">
               <div className="flex gap-3 items-center justify-end">
-                <label className="inline-flex items-center gap-2 select-none cursor-pointer justify-end">
-                  <input type="checkbox" className="peer sr-only" checked={podiumOnly} onChange={e=>setPodiumOnly(e.target.checked)} />
-                  <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 peer-checked:bg-amber-500/20 peer-checked:border-amber-400 text-sm">Podium-Only Goggles</span>
-                </label>
-                <label className="inline-flex items-center gap-2 select-none cursor-pointer justify-end">
-                  <input type="checkbox" className="peer sr-only" checked={showHistory} onChange={e=>setShowHistory(e.target.checked)} />
-                  <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 peer-checked:bg-cyan-500/20 peer-checked:border-cyan-400 text-sm">History Nerd Mode</span>
-                </label>
+                <Link
+                  to="/weekly"
+                  // className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm hover:bg-slate-700/60"
+                  className="px-5 py-2 rounded-full bg-slate-800 border border-slate-700 text-lg font-semibold hover:bg-slate-700/60 whitespace-nowrap"
+                >
+                  Weekly Summaries
+                </Link>
               </div>
             </div>
           </div>
@@ -263,7 +261,15 @@ export default function App(){
               <section className="mb-10">
                 <div className="mb-3 flex items-center justify-between gap-3">
                   <h2 className="text-xl font-bold">League Timeline (rolled-up by franchise)</h2>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap justify-end">
+                    <label className="inline-flex items-center gap-2 select-none cursor-pointer">
+                      <input type="checkbox" className="peer sr-only" checked={podiumOnly} onChange={e=>setPodiumOnly(e.target.checked)} />
+                      <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 peer-checked:bg-amber-500/20 peer-checked:border-amber-400 text-sm">Podium-Only Goggles</span>
+                    </label>
+                    <label className="inline-flex items-center gap-2 select-none cursor-pointer">
+                      <input type="checkbox" className="peer sr-only" checked={showHistory} onChange={e=>setShowHistory(e.target.checked)} />
+                      <span className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 peer-checked:bg-cyan-500/20 peer-checked:border-cyan-400 text-sm">History Nerd Mode</span>
+                    </label>
                     <select value={sortKey} onChange={e=>setSortKey(e.target.value)} className="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-sm">
                       <option value="division">Sort: Division</option>
                       <option value="avg">Sort: Overall Standing</option>
@@ -278,6 +284,7 @@ export default function App(){
                       <option value="cry">Style: 😭</option>
                       <option value="skull">Style: 💀</option>
                     </select>
+
                   </div>
                 </div>
                 <div className="rounded-xl border border-slate-800 overflow-hidden">
