@@ -2,8 +2,14 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
+// export default defineConfig(({ command }) => ({
+//   base: command === "build" ? "/HappyFunLeague/" : "/",
+//   plugins: [react()],
+//   build: { outDir: "docs", assetsDir: "assets" },
+// }));
+
 export default defineConfig(({ command }) => ({
-  base: command === "build" ? "/HappyFunLeague/" : "/",
+  base: command === "build" ? "./" : "/",
   plugins: [react()],
   build: { outDir: "docs", assetsDir: "assets" },
 }));
