@@ -6,7 +6,8 @@ import {
   ResponsiveContainer, BarChart, Bar, Cell
 } from "recharts";
 
-const base = (import.meta && import.meta.env && import.meta.env.BASE_URL) ? import.meta.env.BASE_URL : "/";
+// const base = (import.meta && import.meta.env && import.meta.env.BASE_URL) ? import.meta.env.BASE_URL : "/";
+const base = ""; // use relative URLs
 
 const cn = (...xs) => xs.filter(Boolean).join(" ");
 
@@ -63,7 +64,8 @@ export default function App(){
   const [rows,setRows]=useState([]); const [parseError,setParseError]=useState("");
   const [podiumOnly,setPodiumOnly]=useState(false); const [showHistory,setShowHistory]=useState(false); const [lastStyle,setLastStyle]=useState("skull");
   const [selectedTeamIds,setSelectedTeamIds]=useState([]);
-  const [headerImgUrl]=useState(()=>{try{return localStorage.getItem("hfl_header_art")||(`${base}assets/hfl-header-gritty.png`);}catch{return `${base}assets/hfl-header-gritty.png`;}});
+  // const [headerImgUrl]=useState(()=>{try{return localStorage.getItem("hfl_header_art")||(`${base}assets/hfl-header-gritty.png`);}catch{return `${base}assets/hfl-header-gritty.png`;}});
+  const [headerImgUrl]=useState(()=>{try{return localStorage.getItem("hfl_header_art")||(`assets/hfl-header-gritty.png`);}catch{return `assets/hfl-header-gritty.png`;}});
   const [h2hSummary,setH2hSummary]=useState([]); const [h2hGames,setH2hGames]=useState([]);
   const [focalTeamId,setFocalTeamId]=useState(""); const [selectedOppIds,setSelectedOppIds]=useState([]);
 
@@ -75,7 +77,8 @@ export default function App(){
     }
     async function load(){
       let txt=null;
-      const recCandidates=[`${base}data/records_raw_with_owner_names.csv`,`${base}data/records_raw_with_owner.csv`,`${base}data/records.csv`];
+      // const recCandidates=[`${base}data/records_raw_with_owner_names.csv`,`${base}data/records_raw_with_owner.csv`,`${base}data/records.csv`];
+      const recCandidates=[`data/records_raw_with_owner_names.csv`,`data/records_raw_with_owner.csv`,`data/records.csv`];
       for(const u of recCandidates){ txt = await fetchTextOk(u); if(txt) break; }
       if(!txt){ setParseError("Records CSV not found under data/. Place records_raw_with_owner_names.csv or records_raw_with_owner.csv."); return; }
       Papa.parse(txt,{header:true,skipEmptyLines:true,complete:(res)=>{
@@ -86,20 +89,24 @@ export default function App(){
         if(ids.length){ const rand=ids[Math.floor(Math.random()*ids.length)]; setSelectedTeamIds([rand]); if(!focalTeamId) setFocalTeamId(rand); }
       }});
 
-      const s1 = await fetchTextOk(`${base}data/h2h_summary.csv`);
+      // const s1 = await fetchTextOk(`${base}data/h2h_summary.csv`);
+      const s1 = await fetchTextOk(`data/h2h_summary.csv`);
       if(s1){ Papa.parse(s1,{header:true,skipEmptyLines:true,complete:(res)=>{
         const n=res.data.map(normalizeH2HSummaryRow).filter(r=>r.team_id&&r.opp_id&&r.season);
         setH2hSummary(n);
         if(!focalTeamId && n.length) setFocalTeamId(String(n[0].team_id));
       }}); }
 
-      const s2 = await fetchTextOk(`${base}data/h2h_games.csv`);
+      // const s2 = await fetchTextOk(`${base}data/h2h_games.csv`);
+      const s2 = await fetchTextOk(`data/h2h_games.csv`);
       if(s2){ Papa.parse(s2,{header:true,skipEmptyLines:true,complete:(res)=>{ setH2hGames(res.data.map(normalizeH2HGameRow).filter(Boolean)); }}); }
 
-      const s3 = await fetchTextOk(`${base}data/divisions_by_season.csv`);
+      // const s3 = await fetchTextOk(`${base}data/divisions_by_season.csv`);
+      const s3 = await fetchTextOk(`data/divisions_by_season.csv`);
       if(s3){ Papa.parse(s3,{header:true,skipEmptyLines:true,complete:(res)=>{ setDivSeasonRows(res.data.map(normalizeDivisionsBySeasonRow).filter(r=>r.season&&r.division_id)); }}); }
 
-      const s4 = await fetchTextOk(`${base}data/team_divisions.csv`);
+      // const s4 = await fetchTextOk(`${base}data/team_divisions.csv`);
+      const s4 = await fetchTextOk(`data/team_divisions.csv`);
       if(s4){ Papa.parse(s4,{header:true,skipEmptyLines:true,complete:(res)=>{ setTeamDivRows(res.data.map(normalizeTeamDivisionRow).filter(r=>r.season&&r.team_id&&r.division_id)); }}); }
     }
     load();

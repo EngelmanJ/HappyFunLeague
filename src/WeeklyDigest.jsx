@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Papa from "papaparse";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
-const base = (import.meta?.env?.BASE_URL) ? import.meta.env.BASE_URL : "/";
+// const base = (import.meta?.env?.BASE_URL) ? import.meta.env.BASE_URL : "/";
+const base = ""; // use relative URLs
 
 const fetchText = async (url) => {
   try { const r = await fetch(url, { cache: "no-store" }); if (!r.ok) return null; return await r.text(); } catch { return null; }
@@ -18,14 +19,16 @@ export default function WeeklyDigest() {
   const [statsCSV, setStatsCSV] = useState(null);
   const [err, setErr] = useState("");
 
-  const [headerImgUrl] = useState(() => {
-    try { return localStorage.getItem("hfl_header_art") || `${base}assets/hfl-header-gritty.png`; }
-    catch { return `${base}assets/hfl-header-gritty.png`; }
-  });
+  // const [headerImgUrl] = useState(() => {
+  //   try { return localStorage.getItem("hfl_header_art") || `${base}assets/hfl-header-gritty.png`; }
+  //   catch { return `${base}assets/hfl-header-gritty.png`; }
+  // });
+  const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `assets/hfl-header-gritty.png`; } catch { return `assets/hfl-header-gritty.png`; } });
 
   useEffect(() => {
     (async () => {
-      const idx = await fetchJSON(`${base}data/weekly/index.json`);
+      // const idx = await fetchJSON(`${base}data/weekly/index.json`);
+      const idx = await fetchJSON(`data/weekly/index.json`);
       if (!idx || !idx.weeks?.length) { setErr("No weekly index found."); return; }
       setIndexData(idx);
       const first = idx.weeks[0];
@@ -39,13 +42,15 @@ export default function WeeklyDigest() {
     if (!week) return;
 
     (async () => {
-      const html = await fetchText(`${base}${week.summary}`);
+      // const html = await fetchText(`${base}${week.summary}`);
+      const html = await fetchText(`${week.summary}`);
       if (!html) { setErr("Failed to load summary.html"); return; }
       setSummaryHTML(html);
     })();
 
     (async () => {
-      const url = `${base}${week.stats}`;
+      // const url = `${base}${week.stats}`;
+      const url = `${week.stats}`;
       if (url.endsWith(".json")) {
         const j = await fetchJSON(url);
         setStats(j);
