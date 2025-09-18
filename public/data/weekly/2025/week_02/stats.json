@@ -1,0 +1,32 @@
+{
+  "trend": [
+    {
+      "date": "W02",
+      "value": 1052.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 1052.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 87.67
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Big dog Fin",
+      "Value": 122.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "SB Holy Warriors vs Big dog Fin",
+      "Value": 62.0
+    }
+  ],
+  "league_id": 1148104,
+  "season": 2025,
+  "week": 2,
+  "generated_at": "2025-09-17 21:02 MST"
+}
