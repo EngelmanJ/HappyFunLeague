@@ -7,8 +7,8 @@ import {
 } from "recharts";
 
 // const base = (import.meta && import.meta.env && import.meta.env.BASE_URL) ? import.meta.env.BASE_URL : "/";
-// const base = ""; // use relative URLs
-const base = import.meta?.env?.BASE_URL ?? "/";
+const base = ""; // use relative URLs
+// const base = import.meta?.env?.BASE_URL ?? "/";
 
 const cn = (...xs) => xs.filter(Boolean).join(" ");
 
