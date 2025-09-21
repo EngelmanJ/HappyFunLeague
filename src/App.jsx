@@ -256,8 +256,8 @@ export default function App(){
   ), [oppListForFocal,h2hSeasons,h2hMatrix]);
 
   return (
-    // <div className="min-h-screen bg-slate-950 text-slate-100">
-    <div className="min-h-dvh bg-slate-950 text-slate-200">
+    <div className="min-h-screen bg-slate-950 text-slate-100">
+    {/* <div className="min-h-dvh bg-slate-950 text-slate-200"> */}
       <header className="xl:sticky xl:top-0 z-50 bg-slate-900/95 border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-start md:items-center justify-between gap-6">
@@ -268,7 +268,9 @@ export default function App(){
               </div>
               <h1 className="text-[2rem] leading-[2.25rem] md:text-[3.5rem] md:leading-[3rem] font-black tracking-tight">
                 <span className="block">Happy Fun League</span>
-                <span className="block"><span className="text-fuchsia-400">Records of Glory</span> & <span className="text-rose-400">Shame</span></span>
+                <span className="block">
+                  <span className="text-fuchsia-400">Records of Glory</span> & <span className="text-rose-400">Shame</span>
+                </span>
               </h1>
             </div>
             <div className="flex flex-col items-end gap-2 max-w-full">

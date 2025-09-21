@@ -102,7 +102,7 @@ export default function WeeklyDigest() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
-      <header className="xl:sticky xl:top-0 z-40 bg-slate-900/95 border-b border-slate-800">
+      <header className="xl:sticky xl:top-0 z-50 bg-slate-900/95 border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-start md:items-center justify-between gap-6">
             <div className="flex items-start gap-4 min-w-0">
