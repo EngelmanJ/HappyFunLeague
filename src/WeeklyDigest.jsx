@@ -1,6 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Papa from "papaparse";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
+
+import defaultLogo from "./assets/logo-180x180.png";
+
 // const base = (import.meta?.env?.BASE_URL) ? import.meta.env.BASE_URL : "/";
 const base = ""; // use relative URLs
 // const base = import.meta?.env?.BASE_URL ?? "/";
@@ -25,7 +28,8 @@ export default function WeeklyDigest() {
   //   catch { return `${base}assets/hfl-header-gritty.png`; }
   // });
   // const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `assets/hfl-header-gritty.png`; } catch { return `assets/hfl-header-gritty.png`; } });
-  const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `../logo-180x180.png`; } catch { return `../logo-180x180.png`; } });
+  // const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `../logo-180x180.png`; } catch { return `../logo-180x180.png`; } });
+  const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || defaultLogo; } catch { return defaultLogo; }});
 
   useEffect(() => {
     (async () => {
