@@ -9,7 +9,6 @@ import {
 import defaultLogo from "./assets/logo-180x180.png";
 import footerImg from "./assets/header.png";
 
-
 // const base = (import.meta && import.meta.env && import.meta.env.BASE_URL) ? import.meta.env.BASE_URL : "/";
 const base = ""; // use relative URLs
 // const base = import.meta?.env?.BASE_URL ?? "/";

@@ -3,6 +3,7 @@ import Papa from "papaparse";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
 import defaultLogo from "./assets/logo-180x180.png";
+import footerImg from "./assets/header.png";
 
 // const base = (import.meta?.env?.BASE_URL) ? import.meta.env.BASE_URL : "/";
 const base = ""; // use relative URLs
@@ -186,7 +187,8 @@ export default function WeeklyDigest() {
             </article>
           </section>
         </div>
-        <footer className="mt-12 text-center text-xs text-slate-500 flex flex-col items-center justify-center gap-0"> <img src="header.png" alt="Robot Rockstar" className="w-80 h-80 object-contain" /> Built with Tailwind, Recharts, and a healthy dose of trash-talk. </footer>
+        {/* <footer className="mt-12 text-center text-xs text-slate-500 flex flex-col items-center justify-center gap-0"> <img src="header.png" alt="Robot Rockstar" className="w-80 h-80 object-contain" /> Built with Tailwind, Recharts, and a healthy dose of trash-talk. </footer> */}
+        <footer className="mt-12 text-center text-xs text-slate-500 flex flex-col items-center justify-center gap-0"> <img src={footerImg} alt="Robot Rockstar" className="w-80 h-80 object-contain" /> Built with Tailwind, Recharts, and a healthy dose of trash-talk. </footer>
       </main>
     </div>
   );
