@@ -24,13 +24,33 @@ export default function WeeklyDigest() {
   const [statsCSV, setStatsCSV] = useState(null);
   const [err, setErr] = useState("");
 
-  // const [headerImgUrl] = useState(() => {
-  //   try { return localStorage.getItem("hfl_header_art") || `${base}assets/hfl-header-gritty.png`; }
-  //   catch { return `${base}assets/hfl-header-gritty.png`; }
-  // });
+  // const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `${base}assets/hfl-header-gritty.png`; } catch { return `${base}assets/hfl-header-gritty.png`; } });
   // const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `assets/hfl-header-gritty.png`; } catch { return `assets/hfl-header-gritty.png`; } });
   // const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `../logo-180x180.png`; } catch { return `../logo-180x180.png`; } });
-  const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || defaultLogo; } catch { return defaultLogo; }});
+  // const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || defaultLogo; } catch { return defaultLogo; }});
+
+  const [headerImgUrl, setHeaderImgUrl] = useState(defaultLogo);
+  useEffect(() => {
+    try {
+      const url = localStorage.getItem("hfl_header_art");
+      if (!url) return;                      // nothing stored, keep default
+      // validate the URL is safe (relative or data:) and actually loads
+      const isAllowed =
+        url.startsWith("data:") ||
+        url.startsWith("./") || url.startsWith("../") || /^[^:\/?#]+\.|^\//.test(url) || // quick relative-ish check
+        new URL(url, location.href).origin === location.origin;
+
+      if (!isAllowed) throw new Error("disallowed header url");
+
+      const img = new Image();
+      img.onload  = () => setHeaderImgUrl(url);
+      img.onerror = () => { localStorage.removeItem("hfl_header_art"); setHeaderImgUrl(defaultLogo); };
+      img.src = url;
+    } catch {
+      localStorage.removeItem("hfl_header_art");
+      setHeaderImgUrl(defaultLogo);
+    }
+  }, []);
 
   useEffect(() => {
     (async () => {
