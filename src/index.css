@@ -1,6 +1,12 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
+
+@import "tailwindcss";
+
+/* Tell v4 exactly where to scan for class names */
+@source "./index.html";
+@source "./src/**/*.{js,jsx,ts,tsx}";
 
 /* App-wide vars */
 :root {
