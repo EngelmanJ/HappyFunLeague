@@ -23,7 +23,8 @@ export default function WeeklyDigest() {
   //   try { return localStorage.getItem("hfl_header_art") || `${base}assets/hfl-header-gritty.png`; }
   //   catch { return `${base}assets/hfl-header-gritty.png`; }
   // });
-  const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `assets/hfl-header-gritty.png`; } catch { return `assets/hfl-header-gritty.png`; } });
+  // const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `assets/hfl-header-gritty.png`; } catch { return `assets/hfl-header-gritty.png`; } });
+  const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `/logo-180x180.png`; } catch { return `/logo-180x180.png`; } });
 
   useEffect(() => {
     (async () => {
@@ -80,10 +81,8 @@ export default function WeeklyDigest() {
           <div className="flex items-start md:items-center justify-between gap-6">
             <div className="flex items-start gap-4 min-w-0">
               <div className="relative">
-                {headerImgUrl
-                  ? <img src={headerImgUrl} alt="HFL header art" className="h-24 md:h-28 w-auto rounded-md border border-slate-800 shadow shrink-0" />
-                  : <div className="h-16 w-28 rounded-md border border-slate-800 bg-slate-800/40" />
-                }
+                {/* {headerImgUrl? <img src={headerImgUrl} alt="HFL header art" className="h-24 md:h-28 w-auto rounded-md border border-slate-800 shadow shrink-0" /> : <div className="h-16 w-28 rounded-md border border-slate-800 bg-slate-800/40" />} */}
+                {headerImgUrl? <img src={headerImgUrl} alt="Happy Fun League Logo" className="h-24 md:h-28 w-auto object-contain" /> : <div className="h-16 w-28 rounded-md border border-slate-800 bg-slate-800/40" />}
               </div>
               <h1 className="text-[2rem] leading-[2.25rem] md:text-[3rem] md:leading-[3rem] font-black tracking-tight">
                 <span className="block">Happy Fun League</span>
@@ -182,6 +181,7 @@ export default function WeeklyDigest() {
             </article>
           </section>
         </div>
+        <footer className="mt-12 text-center text-xs text-slate-500 flex flex-col items-center justify-center gap-0"> <img src="/header.png" alt="Robot Rockstar" className="w-80 h-80 object-contain" /> Built with Tailwind, Recharts, and a healthy dose of trash-talk. </footer>
       </main>
     </div>
   );

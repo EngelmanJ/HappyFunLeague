@@ -65,7 +65,8 @@ export default function App(){
   const [podiumOnly,setPodiumOnly]=useState(false); const [showHistory,setShowHistory]=useState(false); const [lastStyle,setLastStyle]=useState("skull");
   const [selectedTeamIds,setSelectedTeamIds]=useState([]);
   // const [headerImgUrl]=useState(()=>{try{return localStorage.getItem("hfl_header_art")||(`${base}assets/hfl-header-gritty.png`);}catch{return `${base}assets/hfl-header-gritty.png`;}});
-  const [headerImgUrl]=useState(()=>{try{return localStorage.getItem("hfl_header_art")||(`assets/hfl-header-gritty.png`);}catch{return `assets/hfl-header-gritty.png`;}});
+  // const [headerImgUrl]=useState(()=>{try{return localStorage.getItem("hfl_header_art")||(`assets/hfl-header-gritty.png`);}catch{return `assets/hfl-header-gritty.png`;}});
+  const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `/logo-180x180.png`; } catch { return `/logo-180x180.png`; } });
   const [h2hSummary,setH2hSummary]=useState([]); const [h2hGames,setH2hGames]=useState([]);
   const [focalTeamId,setFocalTeamId]=useState(""); const [selectedOppIds,setSelectedOppIds]=useState([]);
 
@@ -232,7 +233,8 @@ export default function App(){
           <div className="flex items-start md:items-center justify-between gap-6">
             <div className="flex items-start gap-4 min-w-0">
               <div className="relative">
-                {headerImgUrl? <img src={headerImgUrl} alt="HFL header art" className="h-24 md:h-28 w-auto rounded-md border border-slate-800 shadow shrink-0" /> : <div className="h-16 w-28 rounded-md border border-slate-800 bg-slate-800/40" />}
+                {/* {headerImgUrl? <img src={headerImgUrl} alt="HFL header art" className="h-24 md:h-28 w-auto rounded-md border border-slate-800 shadow shrink-0" /> : <div className="h-16 w-28 rounded-md border border-slate-800 bg-slate-800/40" />} */}
+                {headerImgUrl? <img src={headerImgUrl} alt="Happy Fun League Logo" className="h-24 md:h-28 w-auto object-contain" /> : <div className="h-16 w-28 rounded-md border border-slate-800 bg-slate-800/40" />}
               </div>
               <h1 className="text-[2rem] leading-[2.25rem] md:text-[3.5rem] md:leading-[3rem] font-black tracking-tight">
                 <span className="block">Happy Fun League</span>
@@ -388,7 +390,7 @@ export default function App(){
                 </div>
 
                 <div className="rounded-xl border border-slate-800 p-3 bg-slate-900/60 overflow-auto mt-3">
-                  <h3 className="font-semibold mb-2">Season Matrix</h3>
+                  {/* <h3 className="font-semibold mb-2">Season Matrix</h3> */}
                   {(!focalTeamId||!h2hSeasons.length)? <p className="text-slate-400 text-sm">Choose a franchise.</p> : (
                     <table className="text-sm w-full">
                       <thead>
@@ -499,7 +501,8 @@ export default function App(){
             </>
           )}
 
-          <footer className="mt-12 text-center text-xs text-slate-500">Built with Tailwind, Recharts, and a healthy dose of friendly trash-talk.</footer>
+          {/* <footer className="mt-12 text-center text-xs text-slate-500">Built with Tailwind, Recharts, and a healthy dose of trash-talk.</footer> */}
+          <footer className="mt-12 text-center text-xs text-slate-500 flex flex-col items-center justify-center gap-0"> <img src="/header.png" alt="Robot Rockstar" className="w-80 h-80 object-contain" /> Built with Tailwind, Recharts, and a healthy dose of trash-talk. </footer>
         </div>
       </main>
     </div>

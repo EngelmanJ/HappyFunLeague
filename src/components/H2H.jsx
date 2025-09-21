@@ -179,7 +179,7 @@ export default function H2H({ h2hSummary, h2hGames, summaryRows, getDivisionName
           <h3 className="font-semibold mb-2">Season Matrix</h3>
           {(!focalTeamId || !h2hSeasons.length) ? <p className="text-slate-400 text-sm">Load H2H data and choose a franchise.</p> : (
             <table className="text-sm min-w-[720px] w-full">
-              <thead><tr><th className="sticky left-0 bg-slate-900 z-10 p-2 text-left border-b border-slate-800">Opponent</th>{h2hSeasons.map((s) => <th key={s} className="p-2 text-center border-b border-slate-800 min-w-[72px] w-20">{s}</th>)}</tr></thead>
+              <thead><tr><th className="sticky left-0 bg-slate-900 z-30 p-2 text-left border-b border-slate-800">Opponent</th>{h2hSeasons.map((s) => <th key={s} className="p-2 text-center border-b border-slate-800 min-w-[72px] w-20">{s}</th>)}</tr></thead>
               <tbody>
                 {oppListForFocal.map((opp, idx) => (
                   <tr key={opp} className={idx % 2 ? "bg-slate-950" : "bg-slate-900/40"}>
