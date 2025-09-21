@@ -2,7 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import Papa from "papaparse";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 // const base = (import.meta?.env?.BASE_URL) ? import.meta.env.BASE_URL : "/";
-const base = ""; // use relative URLs
+// const base = ""; // use relative URLs
+const base = import.meta?.env?.BASE_URL ?? "/";
 
 const fetchText = async (url) => {
   try { const r = await fetch(url, { cache: "no-store" }); if (!r.ok) return null; return await r.text(); } catch { return null; }
@@ -24,7 +25,7 @@ export default function WeeklyDigest() {
   //   catch { return `${base}assets/hfl-header-gritty.png`; }
   // });
   // const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `assets/hfl-header-gritty.png`; } catch { return `assets/hfl-header-gritty.png`; } });
-  const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `/logo-180x180.png`; } catch { return `/logo-180x180.png`; } });
+  const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `logo-180x180.png`; } catch { return `logo-180x180.png`; } });
 
   useEffect(() => {
     (async () => {
