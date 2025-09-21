@@ -25,7 +25,7 @@ export default function WeeklyDigest() {
   //   catch { return `${base}assets/hfl-header-gritty.png`; }
   // });
   // const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `assets/hfl-header-gritty.png`; } catch { return `assets/hfl-header-gritty.png`; } });
-  const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `logo-180x180.png`; } catch { return `logo-180x180.png`; } });
+  const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `../logo-180x180.png`; } catch { return `../logo-180x180.png`; } });
 
   useEffect(() => {
     (async () => {
@@ -182,7 +182,7 @@ export default function WeeklyDigest() {
             </article>
           </section>
         </div>
-        <footer className="mt-12 text-center text-xs text-slate-500 flex flex-col items-center justify-center gap-0"> <img src="/header.png" alt="Robot Rockstar" className="w-80 h-80 object-contain" /> Built with Tailwind, Recharts, and a healthy dose of trash-talk. </footer>
+        <footer className="mt-12 text-center text-xs text-slate-500 flex flex-col items-center justify-center gap-0"> <img src="header.png" alt="Robot Rockstar" className="w-80 h-80 object-contain" /> Built with Tailwind, Recharts, and a healthy dose of trash-talk. </footer>
       </main>
     </div>
   );
