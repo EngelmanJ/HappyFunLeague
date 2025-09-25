@@ -1,0 +1,32 @@
+{
+  "trend": [
+    {
+      "date": "W03",
+      "value": 1116.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 1116.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 93.0
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Big Dog Will",
+      "Value": 122.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Team Engelwoman vs Big Dog Will",
+      "Value": 42.0
+    }
+  ],
+  "league_id": 1148104,
+  "season": 2025,
+  "week": 3,
+  "generated_at": "2025-09-24 20:14 MST"
+}
