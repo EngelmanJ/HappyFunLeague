@@ -1,0 +1,32 @@
+{
+  "trend": [
+    {
+      "date": "W04",
+      "value": 1174.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 1174.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 97.83
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Philly Fly Eagles Fly",
+      "Value": 142.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Philly Fly Eagles Fly vs T-Dog's Bruisers",
+      "Value": 49.0
+    }
+  ],
+  "league_id": 1148104,
+  "season": 2025,
+  "week": 4,
+  "generated_at": "2025-10-01 17:06 MST"
+}
