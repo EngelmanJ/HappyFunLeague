@@ -1,0 +1,32 @@
+{
+  "trend": [
+    {
+      "date": "W05",
+      "value": 1046.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 1046.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 87.17
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Pray for Mojo",
+      "Value": 117.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Pray for Mojo vs Arizona Smol Puppers",
+      "Value": 44.0
+    }
+  ],
+  "league_id": 1148104,
+  "season": 2025,
+  "week": 5,
+  "generated_at": "2025-10-08 20:59 MST"
+}
