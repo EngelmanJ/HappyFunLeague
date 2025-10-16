@@ -1,0 +1,32 @@
+{
+  "trend": [
+    {
+      "date": "W06",
+      "value": 979.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 979.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 81.58
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Team Engelwoman",
+      "Value": 136.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "T-Dog's Bruisers vs SB Holy Warriors",
+      "Value": 60.0
+    }
+  ],
+  "league_id": 1148104,
+  "season": 2025,
+  "week": 6,
+  "generated_at": "2025-10-15 19:14 MST"
+}
