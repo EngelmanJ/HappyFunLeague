@@ -1,0 +1,32 @@
+{
+  "trend": [
+    {
+      "date": "W07",
+      "value": 1029.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 1029.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 85.75
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Big Dog Will",
+      "Value": 131.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Arizona Smol Puppers vs Philly Fly Eagles Fly",
+      "Value": 65.0
+    }
+  ],
+  "league_id": 1148104,
+  "season": 2025,
+  "week": 7,
+  "generated_at": "2025-10-22 20:39 MST"
+}
