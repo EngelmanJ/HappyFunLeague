@@ -1,0 +1,32 @@
+{
+  "trend": [
+    {
+      "date": "W08",
+      "value": 1178.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 1178.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 98.17
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Arizona Cardinals",
+      "Value": 145.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Slater Chatty Cathies vs Big Dog Will",
+      "Value": 69.0
+    }
+  ],
+  "league_id": 1148104,
+  "season": 2025,
+  "week": 8,
+  "generated_at": "2025-10-29 19:08 MST"
+}
