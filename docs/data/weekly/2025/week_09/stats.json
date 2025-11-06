@@ -1,0 +1,32 @@
+{
+  "trend": [
+    {
+      "date": "W09",
+      "value": 990.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 990.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 82.5
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Arizona Cardinals",
+      "Value": 98.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Big Dog Will vs Philly Fly Eagles Fly",
+      "Value": 66.0
+    }
+  ],
+  "league_id": 1148104,
+  "season": 2025,
+  "week": 9,
+  "generated_at": "2025-11-05 20:34 MST"
+}
