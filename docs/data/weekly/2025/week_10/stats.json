@@ -1,0 +1,32 @@
+{
+  "trend": [
+    {
+      "date": "W10",
+      "value": 1018.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 1018.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 84.83
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Pray for Mojo",
+      "Value": 116.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "SB Holy Warriors vs Philly Fly Eagles Fly",
+      "Value": 49.0
+    }
+  ],
+  "league_id": 1148104,
+  "season": 2025,
+  "week": 10,
+  "generated_at": "2025-11-12 19:50 MST"
+}
