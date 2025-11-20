@@ -1,0 +1,32 @@
+{
+  "trend": [
+    {
+      "date": "W11",
+      "value": 1006.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 1006.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 83.83
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Arizona Smol Puppers",
+      "Value": 118.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "SB Holy Warriors vs Slater Chatty Cathies",
+      "Value": 49.0
+    }
+  ],
+  "league_id": 1148104,
+  "season": 2025,
+  "week": 11,
+  "generated_at": "2025-11-19 16:38 MST"
+}
