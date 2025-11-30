@@ -1,0 +1,32 @@
+{
+  "trend": [
+    {
+      "date": "W12",
+      "value": 1075.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 1075.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 89.58
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Arizona Wombats",
+      "Value": 116.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Big Dog Will vs T-Dog's Bruisers",
+      "Value": 53.0
+    }
+  ],
+  "league_id": 1148104,
+  "season": 2025,
+  "week": 12,
+  "generated_at": "2025-11-26 13:12 MST"
+}
