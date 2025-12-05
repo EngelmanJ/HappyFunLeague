@@ -1,0 +1,32 @@
+{
+  "trend": [
+    {
+      "date": "W13",
+      "value": 956.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 956.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 79.67
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Arizona Wombats",
+      "Value": 113.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Arizona Smol Puppers vs Arizona Wombats",
+      "Value": 52.0
+    }
+  ],
+  "league_id": 1148104,
+  "season": 2025,
+  "week": 13,
+  "generated_at": "2025-12-04 17:13 MST"
+}
