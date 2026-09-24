@@ -1,199 +1,89 @@
 # Happy Fun League — Records of Glory & Shame
 
-A lightweight React/Vite site for HFL stats, history, and weekly recaps. Built for GitHub Pages.
+Static React dashboard and newsletter archive, hosted on
+[GitHub Pages](https://engelmanj.github.io/HappyFunLeague/).
 
-- **Live site:** `https://engelmanj.github.io/HappyFunLeague/`
-- **Routes:**
-  - `/` — main dashboard (records, charts, head-to-head, divisions)
-  - `#/weekly` — weekly digest browser
+Use **Node 24 LTS**. Run commands from this website directory:
 
----
-
-## Stack (pinned patterns)
-
-- **Vite 7.x + React 18**
-- **react-router-dom 6.30.x** (uses **HashRouter**)
-- **Tailwind CSS 4.x** with **`@tailwindcss/postcss`** (and optional `@tailwindcss/vite`)
-- **Deploy:** GitHub Pages → build to `docs/`, `base: "./"`
-- **Assets rule:**
-  - **Images:** `src/assets/*` and **import** them in code (lets Vite rewrite URLs for Pages)
-  - **Data:** `public/data/*` fetched via **relative** paths (`data/...`) — **no leading “/”**
-
----
-
-## Quick start
-
-```bash
-# Node 18+ recommended
-npm i
-
-# dev
+```sh
+npm ci
 npm run dev
-
-# build → docs/ (publish this to Pages)
+npm test
 npm run build
+npm run preview
+npm audit
 ```
 
----
+Open the URL printed by Vite. Development, build, and preview all use the
+`/HappyFunLeague/` base path. HashRouter serves the dashboard at `#/` and
+newsletters at `#/weekly`, including direct navigation and refreshes.
+`npm run check` runs tests and builds. CI checks the website and advisories;
+it does not deploy.
 
-## Directory layout
+The stack is React 18, React Router 7, Recharts 2, Vite 7, and Tailwind 4 through
+its Vite plugin. Vitest and Testing Library provide regression tests. DOMPurify
+sanitizes newsletter markup, preserving ordinary formatting and inline images.
+Use the committed package lock for reproducible installs.
 
-```
-/public
-  /data/                         # CSV/JSON fetched at runtime
-  header.png (legacy fallback)
-  favicon-32x32.png, favicon.ico, apple-touch-icon.png, site.webmanifest
-/src
-  /assets/                       # importable images (Vite rewrites paths)
-    logo-180x180.png
-    header.png
-  /components, /lib
-  App.jsx
-  WeeklyDigest.jsx
-  main.jsx
-  index.css
-docs/                            # build output for GitHub Pages (generated)
-vite.config.js
-tailwind.config.js
-postcss.config.js
-```
+## Public data contract
 
----
+Keep public inputs in `public/data/`. The browser reads five CSVs:
 
-## Data files
+- `records_raw_with_owner_names.csv`: unique team/season standings, using
+  `season`, `team_id`, `team_name`, `owner_first`, `owner_last`, and
+  `final_standing` or `team.final_standing`. Every season must have complete
+  rankings from 1 to its team count.
+- `h2h_games.csv`: canonical H2H input, with season, week, team IDs and finite
+  scores. Duplicate season/week/pair keys and self-games are rejected.
+- `divisions_by_season.csv`: season, division ID, optional division name.
+- `team_divisions.csv`: team/season division assignments.
+- `current_teams.csv`: current season, franchise ID, team name, owner first name
+  and last initial. These labels do not contribute unfinished-season standings.
 
-Put runtime data under `public/data/`:
+Both dashboard tables default to newest-first; the year-order toggle reverses
+both tables without changing chart chronology. Narrow screens use a compact
+newsletter selector and show a scroll hint when a table overflows.
 
-- `public/data/records_raw_with_owner_names.csv` — main dataset for records pages
-- `public/data/weekly/index.json` — weekly digest index (and any supporting weekly JSON/CSV)
+The existing all-time `h2h_summary.csv` remains an export/reconciliation fixture;
+the browser does not add it to games or depend on its incompatible season schema.
+Python changes and historical collection are separate work. Do not copy
+credentials, raw private snapshots, or unapproved drafts here.
 
-Fetch them with **relative** URLs, e.g.:
+`public/data/weekly/index.json` lists each issue's year, week, title, summary path,
+and stats path relative to `public/`. Paths must stay under `data/weekly/`.
+`stats.json` supports `trend: [{date, value}]` and `table: [{...}]`; table cells
+must be scalar values. Different row shapes align to a common column set.
+CSV statistics also support tables and optional date/value trends.
 
-```js
-// good
-fetch('data/records_raw_with_owner_names.csv')
-// good
-fetch('data/weekly/index.json')
-```
+Tests validate shipped dashboard inputs, reconcile H2H totals, and check every
+indexed weekly file. Refresh the comparison summary with its corresponding games
+when updating annual data. Change contracts and tests explicitly if supporting
+additional formats.
 
-> Don’t use leading slashes (`/data/...`) — those break on GitHub Pages subpaths.
+## Code map
 
----
+- `src/App.jsx`: dashboard presentation and selections.
+- `src/WeeklyDigest.jsx`: issue selection, loading/error states, presentation.
+- `src/lib/data.js`: CSV loading/validation and H2H aggregation.
+- `src/lib/digest.js`: issue/index validation, HTML sanitation, image resolution.
+- `src/lib/useHeaderImage.js`: optional local header-image override.
+- `src/components/ScrollTable.jsx`: shared scrolling table and frozen row labels.
+- `src/components/ChartFrame.jsx`: responsive chart container and empty states.
+- `src/lib/charts.js`: stable franchise styles, tooltips, and chart scales.
+- `tests/`: data integrity and user-interaction regression tests.
+- `src/assets/`: imported images; `src/index.css`: styling.
+- `docs/`: generated publication output; never edit by hand.
 
-## Images & header art
+Unused alternate dashboard components/normalizers were removed so fixes reach
+the active implementation.
 
-- Default header/logo is imported from `src/assets/logo-180x180.png` so Vite handles the path.
-- A user can override via `localStorage.setItem('hfl_header_art', <url>)`.
-  To reset: open DevTools console on the site and run:
-  ```js
-  localStorage.removeItem('hfl_header_art'); location.reload();
-  ```
-- In code, prefer imports:
-  ```jsx
-  import defaultLogo from "./assets/logo-180x180.png";
-  const [headerImgUrl, setHeaderImgUrl] = useState(defaultLogo);
-  ```
+## Build and publication
 
----
+1. Run `npm run check` and `npm audit`.
+2. Run `npm run preview`; inspect both routes, tables, and charts.
+3. Review the source and generated `docs/` diff.
+4. Commit/push only when publication is authorized. Pages serves `main:/docs`.
 
-## Tailwind (v4) configuration
-
-- **`postcss.config.js`**
-  ```js
-  export default {
-    plugins: {
-      '@tailwindcss/postcss': {},
-      autoprefixer: {},
-    },
-  }
-  ```
-
-- **`src/index.css`** (v4 style)
-  ```css
-  @import "tailwindcss";
-  @source "./index.html";
-  @source "./src/**/*.{js,jsx,ts,tsx}";
-  /* optional inline safelist for dynamic classes */
-  @source inline("bg-slate-950 text-slate-200 border-slate-800 bg-slate-900/60");
-  ```
-
-> The old `@tailwind base; @tailwind components; @tailwind utilities;` form was v3-era. v4 prefers the single `@import "tailwindcss"`.
-
----
-
-## Vite config for GitHub Pages
-
-`vite.config.js` is set to emit to `docs/` and use a **relative base** in production:
-
-```js
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-
-export default defineConfig(({ command }) => ({
-  base: command === "build" ? "./" : "/",
-  plugins: [react()],
-  build: { outDir: "docs", assetsDir: "assets" },
-}));
-```
-
-This works with **HashRouter** and imported images. (Do not use leading slashes for runtime fetches.)
-
----
-
-## Deploy checklist
-
-1. `npm run build` (emits to `docs/`)
-2. Commit and push `docs/`
-3. GitHub repo settings → Pages → Source: `main` → `/docs`
-4. Hard refresh the site
-
----
-
-## Troubleshooting
-
-**Site looks unstyled**
-- Confirm Tailwind v4 plugin is configured:
-  - `postcss.config.js` has `@tailwindcss/postcss`
-  - `src/index.css` uses `@import "tailwindcss"` and `@source` lines
-- Open `docs/assets/*.css` and search for `.bg-slate-950` or `--tw-` to confirm utilities exist.
-
-**Images show wrong / fallback image**
-- Make sure all images are **imported** from `src/assets` in code.
-- Clear `localStorage` override:
-  ```js
-  localStorage.removeItem('hfl_header_art'); location.reload();
-  ```
-
-**Data fetch 404s on Pages**
-- Check that requests start with `data/...` (no leading `/`).
-- Ensure the files are under `public/data/` before building.
-
-**React Router “future” warnings in dev**
-- Harmless. Optional opt-in:
-  ```jsx
-  <HashRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-    {/* routes */}
-  </HashRouter>
-  ```
-
-**Chunk size warning on build**
-- Safe to ignore. Consider code-splitting later via dynamic `import()` if desired.
-
----
-
-## Version checks
-
-```bash
-node -p "require('tailwindcss/package.json').version"
-node -p "require('@tailwindcss/postcss/package.json').version"
-node -p "require('vite/package.json').version"
-node -p "require('react-router-dom/package.json').version"
-```
-
----
-
-## Conventions
-
-- Keep GH Pages invariants: `docs/` output, `base: "./"`, **HashRouter**, relative data paths.
-- Never use leading “/” in runtime asset paths.
-- Prefer imported images over string paths.
+Building alone does not publish. Use relative runtime data paths (`data/...`)
+and imported images. Reset a header override with
+`localStorage.removeItem('hfl_header_art')`; disabled storage is harmless.

@@ -1208,3 +1208,99 @@ season,week,team_a_id,team_a_name,team_a_owner,team_a_owner_first,team_a_owner_l
 2024,16,4,Missouri Daikat,,Scott,F.,87,5,Pray for Mojo,,Phil,R.,238,5
 2024,16,6,Tempe Trout,,Glen,R.,204,9,Three Peat,,Justin,G.,269,9
 2024,16,8,Arizona Bullox,,Adrian,V.,133,11,Slater Chatty Cathies,,Marliese,R.,119,8
+2025,1,1,Arizona Wombats,,Jeremiah,E.,96.0,12,Big dog Fin,,Finley,P.,80.0,1
+2025,1,2,Arizona Smol Puppers,,Alana,I.,76.0,10,SB Holy Warriors,,Joshua,S.,53.0,2
+2025,1,5,Pray for Mojo,,Phil,R.,71.0,11,Slater Chatty Cathies,,Marliese,R.,93.0,11
+2025,1,3,Philly Fly Eagles Fly,,Niklas,J.,71.0,9,Arizona Cardinals,,Ellis,G.,81.0,9
+2025,1,4,Big Dog Will,,William,E.,83.0,8,T-Dog's Bruisers,,Tyson,P.,80.0,4
+2025,1,6,Tempe Trout,,Glen,R.,72.0,7,Team Engelwoman,,Andrea,E.,73.0,7
+2025,2,1,Arizona Wombats,,Jeremiah,E.,101.0,2,Arizona Smol Puppers,,Alana,I.,96.0,1
+2025,2,10,SB Holy Warriors,,Joshua,S.,60.0,12,Big dog Fin,,Finley,P.,122.0,12
+2025,2,3,Philly Fly Eagles Fly,,Niklas,J.,79.0,11,Slater Chatty Cathies,,Marliese,R.,42.0,3
+2025,2,4,Big Dog Will,,William,E.,75.0,6,Tempe Trout,,Glen,R.,113.0,6
+2025,2,5,Pray for Mojo,,Phil,R.,112.0,9,Arizona Cardinals,,Ellis,G.,88.0,5
+2025,2,7,Team Engelwoman,,Andrea,E.,91.0,8,T-Dog's Bruisers,,Tyson,P.,73.0,7
+2025,3,1,Arizona Wombats,,Jeremiah,E.,66.0,10,SB Holy Warriors,,Joshua,S.,97.0,10
+2025,3,9,Arizona Cardinals,,Ellis,G.,85.0,11,Slater Chatty Cathies,,Marliese,R.,117.0,11
+2025,3,2,Arizona Smol Puppers,,Alana,I.,93.0,12,Big dog Fin,,Finley,P.,78.0,2
+2025,3,3,Philly Fly Eagles Fly,,Niklas,J.,118.0,5,Pray for Mojo,,Phil,R.,77.0,3
+2025,3,4,Big Dog Will,,William,E.,122.0,7,Team Engelwoman,,Andrea,E.,80.0,4
+2025,3,6,Tempe Trout,,Glen,R.,111.0,8,T-Dog's Bruisers,,Tyson,P.,72.0,6
+2025,4,1,Arizona Wombats,,Jeremiah,E.,93.0,5,Pray for Mojo,,Phil,R.,60.0,1
+2025,4,6,Tempe Trout,,Glen,R.,107.0,10,SB Holy Warriors,,Joshua,S.,115.0,10
+2025,4,7,Team Engelwoman,,Andrea,E.,91.0,11,Slater Chatty Cathies,,Marliese,R.,83.0,7
+2025,4,4,Big Dog Will,,William,E.,80.0,12,Big dog Fin,,Finley,P.,95.0,12
+2025,4,2,Arizona Smol Puppers,,Alana,I.,132.0,9,Arizona Cardinals,,Ellis,G.,83.0,2
+2025,4,3,Philly Fly Eagles Fly,,Niklas,J.,142.0,8,T-Dog's Bruisers,,Tyson,P.,93.0,3
+2025,5,1,Arizona Wombats,,Jeremiah,E.,96.0,9,Arizona Cardinals,,Ellis,G.,74.0,1
+2025,5,4,Big Dog Will,,William,E.,72.0,10,SB Holy Warriors,,Joshua,S.,80.0,10
+2025,5,8,T-Dog's Bruisers,,Tyson,P.,103.0,11,Slater Chatty Cathies,,Marliese,R.,91.0,8
+2025,5,6,Tempe Trout,,Glen,R.,66.0,12,Big dog Fin,,Finley,P.,84.0,12
+2025,5,2,Arizona Smol Puppers,,Alana,I.,73.0,5,Pray for Mojo,,Phil,R.,117.0,5
+2025,5,3,Philly Fly Eagles Fly,,Niklas,J.,100.0,7,Team Engelwoman,,Andrea,E.,90.0,3
+2025,6,1,Arizona Wombats,,Jeremiah,E.,103.0,3,Philly Fly Eagles Fly,,Niklas,J.,52.0,1
+2025,6,8,T-Dog's Bruisers,,Tyson,P.,102.0,10,SB Holy Warriors,,Joshua,S.,42.0,8
+2025,6,2,Arizona Smol Puppers,,Alana,I.,71.0,11,Slater Chatty Cathies,,Marliese,R.,63.0,2
+2025,6,7,Team Engelwoman,,Andrea,E.,136.0,12,Big dog Fin,,Finley,P.,113.0,7
+2025,6,4,Big Dog Will,,William,E.,71.0,9,Arizona Cardinals,,Ellis,G.,82.0,9
+2025,6,5,Pray for Mojo,,Phil,R.,73.0,6,Tempe Trout,,Glen,R.,71.0,5
+2025,7,1,Arizona Wombats,,Jeremiah,E.,94.0,11,Slater Chatty Cathies,,Marliese,R.,58.0,1
+2025,7,7,Team Engelwoman,,Andrea,E.,88.0,10,SB Holy Warriors,,Joshua,S.,28.0,7
+2025,7,8,T-Dog's Bruisers,,Tyson,P.,112.0,12,Big dog Fin,,Finley,P.,67.0,8
+2025,7,2,Arizona Smol Puppers,,Alana,I.,54.0,3,Philly Fly Eagles Fly,,Niklas,J.,119.0,3
+2025,7,4,Big Dog Will,,William,E.,131.0,5,Pray for Mojo,,Phil,R.,93.0,4
+2025,7,6,Tempe Trout,,Glen,R.,95.0,9,Arizona Cardinals,,Ellis,G.,90.0,6
+2025,8,1,Arizona Wombats,,Jeremiah,E.,120.0,8,T-Dog's Bruisers,,Tyson,P.,115.0,1
+2025,8,5,Pray for Mojo,,Phil,R.,89.0,10,SB Holy Warriors,,Joshua,S.,78.0,5
+2025,8,4,Big Dog Will,,William,E.,53.0,11,Slater Chatty Cathies,,Marliese,R.,122.0,11
+2025,8,9,Arizona Cardinals,,Ellis,G.,145.0,12,Big dog Fin,,Finley,P.,108.0,9
+2025,8,2,Arizona Smol Puppers,,Alana,I.,124.0,7,Team Engelwoman,,Andrea,E.,94.0,2
+2025,8,3,Philly Fly Eagles Fly,,Niklas,J.,54.0,6,Tempe Trout,,Glen,R.,76.0,6
+2025,9,1,Arizona Wombats,,Jeremiah,E.,92.0,7,Team Engelwoman,,Andrea,E.,86.0,1
+2025,9,9,Arizona Cardinals,,Ellis,G.,98.0,10,SB Holy Warriors,,Joshua,S.,79.0,9
+2025,9,6,Tempe Trout,,Glen,R.,85.0,11,Slater Chatty Cathies,,Marliese,R.,96.0,11
+2025,9,5,Pray for Mojo,,Phil,R.,82.0,12,Big dog Fin,,Finley,P.,90.0,12
+2025,9,2,Arizona Smol Puppers,,Alana,I.,88.0,8,T-Dog's Bruisers,,Tyson,P.,66.0,2
+2025,9,3,Philly Fly Eagles Fly,,Niklas,J.,31.0,4,Big Dog Will,,William,E.,97.0,4
+2025,10,1,Arizona Wombats,,Jeremiah,E.,99.0,6,Tempe Trout,,Glen,R.,83.0,1
+2025,10,3,Philly Fly Eagles Fly,,Niklas,J.,81.0,10,SB Holy Warriors,,Joshua,S.,32.0,3
+2025,10,11,Slater Chatty Cathies,,Marliese,R.,87.0,12,Big dog Fin,,Finley,P.,70.0,11
+2025,10,2,Arizona Smol Puppers,,Alana,I.,76.0,4,Big Dog Will,,William,E.,77.0,4
+2025,10,5,Pray for Mojo,,Phil,R.,116.0,8,T-Dog's Bruisers,,Tyson,P.,92.0,5
+2025,10,7,Team Engelwoman,,Andrea,E.,99.0,9,Arizona Cardinals,,Ellis,G.,106.0,9
+2025,11,1,Arizona Wombats,,Jeremiah,E.,102.0,4,Big Dog Will,,William,E.,114.0,4
+2025,11,10,SB Holy Warriors,,Joshua,S.,52.0,11,Slater Chatty Cathies,,Marliese,R.,101.0,11
+2025,11,3,Philly Fly Eagles Fly,,Niklas,J.,59.0,12,Big dog Fin,,Finley,P.,73.0,12
+2025,11,2,Arizona Smol Puppers,,Alana,I.,118.0,6,Tempe Trout,,Glen,R.,73.0,2
+2025,11,5,Pray for Mojo,,Phil,R.,76.0,7,Team Engelwoman,,Andrea,E.,82.0,7
+2025,11,8,T-Dog's Bruisers,,Tyson,P.,83.0,9,Arizona Cardinals,,Ellis,G.,73.0,8
+2025,12,1,Arizona Wombats,,Jeremiah,E.,116.0,12,Big dog Fin,,Finley,P.,85.0,1
+2025,12,2,Arizona Smol Puppers,,Alana,I.,101.0,10,SB Holy Warriors,,Joshua,S.,57.0,2
+2025,12,5,Pray for Mojo,,Phil,R.,92.0,11,Slater Chatty Cathies,,Marliese,R.,70.0,5
+2025,12,3,Philly Fly Eagles Fly,,Niklas,J.,114.0,9,Arizona Cardinals,,Ellis,G.,88.0,3
+2025,12,4,Big Dog Will,,William,E.,113.0,8,T-Dog's Bruisers,,Tyson,P.,60.0,4
+2025,12,6,Tempe Trout,,Glen,R.,102.0,7,Team Engelwoman,,Andrea,E.,77.0,6
+2025,13,1,Arizona Wombats,,Jeremiah,E.,113.0,2,Arizona Smol Puppers,,Alana,I.,61.0,1
+2025,13,10,SB Holy Warriors,,Joshua,S.,53.0,12,Big dog Fin,,Finley,P.,92.0,12
+2025,13,3,Philly Fly Eagles Fly,,Niklas,J.,53.0,11,Slater Chatty Cathies,,Marliese,R.,80.0,11
+2025,13,4,Big Dog Will,,William,E.,98.0,6,Tempe Trout,,Glen,R.,75.0,4
+2025,13,5,Pray for Mojo,,Phil,R.,87.0,9,Arizona Cardinals,,Ellis,G.,73.0,5
+2025,13,7,Team Engelwoman,,Andrea,E.,81.0,8,T-Dog's Bruisers,,Tyson,P.,90.0,8
+2025,14,1,Arizona Wombats,,Jeremiah,E.,119.0,10,SB Holy Warriors,,Joshua,S.,55.0,1
+2025,14,9,Arizona Cardinals,,Ellis,G.,82.0,11,Slater Chatty Cathies,,Marliese,R.,82.0,0
+2025,14,2,Arizona Smol Puppers,,Alana,I.,108.0,12,Big dog Fin,,Finley,P.,95.0,2
+2025,14,3,Philly Fly Eagles Fly,,Niklas,J.,69.0,5,Pray for Mojo,,Phil,R.,86.0,5
+2025,14,4,Big Dog Will,,William,E.,104.0,7,Team Engelwoman,,Andrea,E.,56.0,4
+2025,14,6,Tempe Trout,,Glen,R.,95.0,8,T-Dog's Bruisers,,Tyson,P.,81.0,6
+2025,15,1,Arizona Wombats,,Jeremiah,E.,245.0,2,Arizona Smol Puppers,,Alana,I.,270.0,2
+2025,15,8,T-Dog's Bruisers,,Tyson,P.,145.0,10,SB Holy Warriors,,Joshua,S.,74.0,8
+2025,15,3,Philly Fly Eagles Fly,,Niklas,J.,170.0,11,Slater Chatty Cathies,,Marliese,R.,97.0,3
+2025,15,9,Arizona Cardinals,,Ellis,G.,212.0,12,Big dog Fin,,Finley,P.,177.0,9
+2025,15,4,Big Dog Will,,William,E.,178.0,5,Pray for Mojo,,Phil,R.,252.0,5
+2025,15,6,Tempe Trout,,Glen,R.,165.0,7,Team Engelwoman,,Andrea,E.,205.0,7
+2025,16,1,Arizona Wombats,,Jeremiah,E.,184.0,4,Big Dog Will,,William,E.,186.0,4
+2025,16,10,SB Holy Warriors,,Joshua,S.,67.0,12,Big dog Fin,,Finley,P.,119.0,12
+2025,16,9,Arizona Cardinals,,Ellis,G.,169.0,11,Slater Chatty Cathies,,Marliese,R.,128.0,9
+2025,16,2,Arizona Smol Puppers,,Alana,I.,195.0,5,Pray for Mojo,,Phil,R.,224.0,5
+2025,16,3,Philly Fly Eagles Fly,,Niklas,J.,147.0,7,Team Engelwoman,,Andrea,E.,150.0,7
+2025,16,6,Tempe Trout,,Glen,R.,133.0,8,T-Dog's Bruisers,,Tyson,P.,135.0,8

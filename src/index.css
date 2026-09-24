@@ -2,16 +2,58 @@
 @tailwind components;
 @tailwind utilities; */
 
-@import "tailwindcss";
+@import "tailwindcss" source(none);
 
 /* Tell v4 exactly where to scan for class names */
-@source "./index.html";
-@source "./src/**/*.{js,jsx,ts,tsx}";
+@source "../index.html";
+@source "./**/*.{js,jsx}";
 
-/* App-wide vars */
-:root {
-  --mobile-lock-width: 1024px;
+.site-header { background: #0f172a; }
+
+.table-shell {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #1e293b;
+  border-radius: 0.75rem;
+  background: #020617;
 }
+.table-scroll {
+  position: relative;
+  isolation: isolate;
+  overflow: auto;
+  padding: 0;
+  max-width: 100%;
+}
+.table-scroll:focus-visible { outline: 2px solid #34d399; outline-offset: -2px; }
+.league-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.875rem;
+}
+.league-table thead { background: #0f172a; }
+.league-table .frozen-label {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  width: 12rem;
+  min-width: 12rem;
+  max-width: 12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0.5rem;
+  text-align: left;
+  font-weight: 400;
+  background: #020617;
+  border-bottom: 1px solid #1e293b;
+  box-shadow: 1px 0 0 #334155;
+}
+.league-table thead .frozen-label { z-index: 3; background: #0f172a; font-weight: 600; }
+.chart-frame { width: 100%; min-width: 0; }
+.chart-frame .recharts-tooltip-wrapper { max-width: 100%; }
+.chart-frame .recharts-default-tooltip { white-space: normal !important; overflow-wrap: anywhere; }
+.chart-empty { display: grid; place-items: center; height: 100%; padding: 1rem; color: #94a3b8; text-align: center; }
 
 /* Layout baseline */
 html, body, #root {

@@ -1,110 +1,60 @@
 import React, { useEffect, useMemo, useState } from "react";
-import Papa from "papaparse";
+import { fetchText } from "./lib/data";
+import { loadIssue, validateIndex, weekKey } from "./lib/digest";
+import useHeaderImage from "./lib/useHeaderImage";
+import ScrollTable from "./components/ScrollTable";
+import ChartFrame from "./components/ChartFrame";
+import { chartTooltipProps } from "./lib/charts";
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 
-import defaultLogo from "./assets/logo-180x180.png";
 import footerImg from "./assets/header.png";
-
-// const base = (import.meta?.env?.BASE_URL) ? import.meta.env.BASE_URL : "/";
-const base = ""; // use relative URLs
-// const base = import.meta?.env?.BASE_URL ?? "/";
-
-const fetchText = async (url) => {
-  try { const r = await fetch(url, { cache: "no-store" }); if (!r.ok) return null; return await r.text(); } catch { return null; }
-};
-const fetchJSON = async (url) => {
-  try { const r = await fetch(url, { cache: "no-store" }); if (!r.ok) return null; return await r.json(); } catch { return null; }
-};
 
 export default function WeeklyDigest() {
   const [indexData, setIndexData] = useState(null);
   const [activeKey, setActiveKey] = useState("");
-  const [summaryHTML, setSummaryHTML] = useState("");
-  const [stats, setStats] = useState(null);
-  const [statsCSV, setStatsCSV] = useState(null);
-  const [err, setErr] = useState("");
-
-  // const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `${base}assets/hfl-header-gritty.png`; } catch { return `${base}assets/hfl-header-gritty.png`; } });
-  // const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `assets/hfl-header-gritty.png`; } catch { return `assets/hfl-header-gritty.png`; } });
-  // const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || `../logo-180x180.png`; } catch { return `../logo-180x180.png`; } });
-  // const [headerImgUrl] = useState(() => { try { return localStorage.getItem("hfl_header_art") || defaultLogo; } catch { return defaultLogo; }});
-
-  const [headerImgUrl, setHeaderImgUrl] = useState(defaultLogo);
-  useEffect(() => {
-    try {
-      const url = localStorage.getItem("hfl_header_art");
-      if (!url) return;                      // nothing stored, keep default
-      // validate the URL is safe (relative or data:) and actually loads
-      const isAllowed =
-        url.startsWith("data:") ||
-        url.startsWith("./") || url.startsWith("../") || /^[^:\/?#]+\.|^\//.test(url) || // quick relative-ish check
-        new URL(url, location.href).origin === location.origin;
-
-      if (!isAllowed) throw new Error("disallowed header url");
-
-      const img = new Image();
-      img.onload  = () => setHeaderImgUrl(url);
-      img.onerror = () => { localStorage.removeItem("hfl_header_art"); setHeaderImgUrl(defaultLogo); };
-      img.src = url;
-    } catch {
-      localStorage.removeItem("hfl_header_art");
-      setHeaderImgUrl(defaultLogo);
-    }
-  }, []);
+  const [issue, setIssue] = useState(null);
+  const [indexError, setIndexError] = useState("");
+  const [retry, setRetry] = useState(0);
+  const headerImgUrl = useHeaderImage();
 
   useEffect(() => {
-    (async () => {
-      // const idx = await fetchJSON(`${base}data/weekly/index.json`);
-      const idx = await fetchJSON(`data/weekly/index.json`);
-      if (!idx || !idx.weeks?.length) { setErr("No weekly index found."); return; }
-      setIndexData(idx);
-      const first = idx.weeks[0];
-      setActiveKey(prev => prev || `${first.year}-W${String(first.week).padStart(2,"0")}`);
-    })();
-  }, []);
+    const controller = new AbortController();
+    let active = true;
+    setIndexError("");
+    fetchText('data/weekly/index.json', controller.signal)
+      .then(text => validateIndex(JSON.parse(text)))
+      .then(index => {
+        if (!active) return;
+        setIndexData(index);
+        setActiveKey(previous => index.weeks.some(w => weekKey(w) === previous) ? previous : weekKey(index.weeks[0]));
+      }).catch(() => { if (active) setIndexError("Could not load the weekly index."); });
+    return () => { active = false; controller.abort(); };
+  }, [retry]);
 
   useEffect(() => {
-    if (!indexData || !activeKey) return;
-    const week = indexData.weeks.find(w => `${w.year}-W${String(w.week).padStart(2,"0")}` === activeKey);
+    const week = indexData?.weeks.find(w => weekKey(w) === activeKey);
     if (!week) return;
-
-    (async () => {
-      // const html = await fetchText(`${base}${week.summary}`);
-      const html = await fetchText(`${week.summary}`);
-      if (!html) { setErr("Failed to load summary.html"); return; }
-      setSummaryHTML(html);
-    })();
-
-    (async () => {
-      // const url = `${base}${week.stats}`;
-      const url = `${week.stats}`;
-      if (url.endsWith(".json")) {
-        const j = await fetchJSON(url);
-        setStats(j);
-        setStatsCSV(null);
-      } else if (url.endsWith(".csv")) {
-        const t = await fetchText(url);
-        if (!t) { setErr("Failed to load stats.csv"); return; }
-        const parsed = Papa.parse(t, { header: true, skipEmptyLines: true }).data;
-        setStatsCSV(parsed);
-        setStats(null);
-      }
-    })();
+    const controller = new AbortController();
+    let active = true;
+    setIssue(null);
+    loadIssue(week, controller.signal).then(result => {
+      if (active) setIssue({ ...result, key: activeKey });
+    });
+    return () => { active = false; controller.abort(); };
   }, [indexData, activeKey]);
 
-  const tinyChartData = useMemo(() => {
-    if (stats?.trend) return stats.trend;
-    if (Array.isArray(statsCSV)) {
-      return statsCSV.map(r => ({ date: r.date, value: Number(r.value) || 0 }));
-    }
-    return [];
-  }, [stats, statsCSV]);
+  const current = issue?.key === activeKey ? issue : null;
+  const summaryHTML = current?.summaryHTML ?? "";
+  const stats = current?.stats;
+  const err = indexError || current?.error;
+  const tinyChartData = stats?.trend ?? [];
+  const columns = useMemo(() => [...new Set((stats?.table ?? []).flatMap(row => Object.keys(row)))], [stats]);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
-      <header className="xl:sticky xl:top-0 z-50 bg-slate-900/95 border-b border-slate-800">
+      <header className="xl:sticky xl:top-0 z-50 site-header border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-start md:items-center justify-between gap-6">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div className="flex items-start gap-4 min-w-0">
               <div className="relative">
                 {/* {headerImgUrl? <img src={headerImgUrl} alt="HFL header art" className="h-24 md:h-28 w-auto rounded-md border border-slate-800 shadow shrink-0" /> : <div className="h-16 w-28 rounded-md border border-slate-800 bg-slate-800/40" />} */}
@@ -129,18 +79,23 @@ export default function WeeklyDigest() {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 py-6">
-        {err && <p className="text-rose-300 mb-3">{err}</p>}
+        {err && <p role="alert" className="text-rose-300 mb-3">{err} <button className="underline" onClick={() => setRetry(n => n + 1)}>Retry</button></p>}
 
-        <div className="grid md:grid-cols-[18rem_1fr] gap-4 items-start">
+        <div className="grid md:grid-cols-[14rem_minmax(0,1fr)] gap-4 items-start">
           <aside className="rounded-xl border border-slate-800 bg-slate-900/60 p-3">
             <h2 className="font-semibold mb-2">Select Week</h2>
-            <div className="space-y-1 max-h-[420px] overflow-auto">
+            <select aria-label="Select Week" className="md:hidden w-full min-h-11 rounded border border-slate-700 bg-slate-900 px-2 text-base" value={activeKey} onChange={event => setActiveKey(event.target.value)} disabled={!indexData}>
+              {!indexData && <option value="">Loading weeks…</option>}
+              {indexData?.weeks.map(w => <option key={weekKey(w)} value={weekKey(w)}>{w.title || `Week ${String(w.week).padStart(2,"0")}, ${w.year}`}</option>)}
+            </select>
+            <div className="hidden md:block space-y-1 max-h-[420px] overflow-auto">
               {indexData?.weeks?.map(w => {
                 const key = `${w.year}-W${String(w.week).padStart(2,"0")}`;
                 const label = w.title || `Week ${String(w.week).padStart(2,"0")}, ${w.year}`;
                 return (
                   <button
                     key={key}
+                    aria-pressed={activeKey === key}
                     onClick={() => setActiveKey(key)}
                     className={`w-full text-left px-2 py-1 rounded border ${activeKey===key ? "border-emerald-500/60 bg-emerald-900/20" : "border-slate-800 hover:border-slate-700"}`}
                     title={label}
@@ -152,11 +107,11 @@ export default function WeeklyDigest() {
             </div>
           </aside>
 
-          <section className="space-y-4">
+          <section className="space-y-4 min-w-0">
             <article className="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
               {/* <h2 className="text-lg font-semibold mb-3">Summary</h2> */}
               {!summaryHTML ? (
-                <p className="text-slate-400 text-sm">Loading…</p>
+                <p className="text-slate-400 text-sm">{current || indexError ? "Newsletter unavailable." : "Loading…"}</p>
               ) : (
                 <div
                   className="prose prose-invert !max-w-none w-full"
@@ -168,26 +123,25 @@ export default function WeeklyDigest() {
             <article className="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
               <h2 className="text-lg font-semibold mb-3">Key Stats</h2>
               {!tinyChartData.length ? (
-                <p className="text-slate-400 text-sm">No stats for this week.</p>
+                <p className="text-slate-400 text-sm">{!current && !indexError ? "Loading statistics…" : stats?.table?.length ? "" : "No stats for this week."}</p>
               ) : (
-                <div className="h-56">
+                <ChartFrame label="Weekly points" height={224}>
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={tinyChartData} margin={{ left: 8, right: 8, top: 8, bottom: 8 }}>
                       <CartesianGrid strokeDasharray="2 3" strokeOpacity={0.3} />
                       <XAxis dataKey="date" tick={{ fill: "#cbd5e1" }} stroke="#64748b" angle={-45} textAnchor="end" height={50} />
                       <YAxis tick={{ fill: "#cbd5e1" }} stroke="#64748b" />
-                      <Tooltip contentStyle={{ background: "#0f172a", border: "1px solid #1f2937", color: "#e2e8f0" }} />
+                      <Tooltip {...chartTooltipProps} />
                       <Line type="monotone" dataKey="value" stroke="#22c55e" strokeWidth={2} dot={{ r: 2 }} />
                     </LineChart>
                   </ResponsiveContainer>
-                </div>
+                </ChartFrame>
               )}
               {Array.isArray(stats?.table) && stats.table.length > 0 && (
-                <div className="mt-4 overflow-auto">
-                  <table className="text-sm w-full">
+                <ScrollTable label="Weekly statistics" className="mt-4">
                     <thead>
                       <tr>
-                        {Object.keys(stats.table[0]).map(k => (
+                        {columns.map(k => (
                           <th key={k} className="bg-slate-900 border-b border-slate-800 p-2 text-left">{k}</th>
                         ))}
                       </tr>
@@ -195,14 +149,13 @@ export default function WeeklyDigest() {
                     <tbody>
                       {stats.table.map((row, i) => (
                         <tr key={i} className={i%2 ? "bg-slate-950" : "bg-slate-900/40"}>
-                          {Object.keys(row).map(k => (
-                            <td key={k} className="p-2 border-b border-slate-800">{row[k]}</td>
+                          {columns.map(k => (
+                            <td key={k} className="p-2 border-b border-slate-800">{row[k] == null ? "—" : String(row[k])}</td>
                           ))}
                         </tr>
                       ))}
                     </tbody>
-                  </table>
-                </div>
+                  </ScrollTable>
               )}
             </article>
           </section>
