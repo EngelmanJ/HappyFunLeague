@@ -1,0 +1,28 @@
+{
+  "trend": [
+    {
+      "date": "W01",
+      "value": 1174.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 1174.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 97.83
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Arizona Smol Puppers",
+      "Value": 122.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Big Dog Will @ Tempe Trout",
+      "Value": 34.0
+    }
+  ]
+}

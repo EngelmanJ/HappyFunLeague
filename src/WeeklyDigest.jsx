@@ -125,14 +125,14 @@ export default function WeeklyDigest() {
               {!tinyChartData.length ? (
                 <p className="text-slate-400 text-sm">{!current && !indexError ? "Loading statistics…" : stats?.table?.length ? "" : "No stats for this week."}</p>
               ) : (
-                <ChartFrame label="Weekly points" height={224}>
+                <ChartFrame label="League total points by week" height={224}>
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={tinyChartData} margin={{ left: 8, right: 8, top: 8, bottom: 8 }}>
                       <CartesianGrid strokeDasharray="2 3" strokeOpacity={0.3} />
                       <XAxis dataKey="date" tick={{ fill: "#cbd5e1" }} stroke="#64748b" angle={-45} textAnchor="end" height={50} />
                       <YAxis tick={{ fill: "#cbd5e1" }} stroke="#64748b" />
                       <Tooltip {...chartTooltipProps} />
-                      <Line type="monotone" dataKey="value" stroke="#22c55e" strokeWidth={2} dot={{ r: 2 }} />
+                      <Line name="League total points" type="monotone" dataKey="value" stroke="#22c55e" strokeWidth={2} dot={{ r: 2 }} />
                     </LineChart>
                   </ResponsiveContainer>
                 </ChartFrame>
