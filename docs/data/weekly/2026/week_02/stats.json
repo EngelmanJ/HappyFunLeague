@@ -1,0 +1,32 @@
+{
+  "trend": [
+    {
+      "date": "W01",
+      "value": 1174.0
+    },
+    {
+      "date": "W02",
+      "value": 1055.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 1055.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 87.92
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Slater Chatty Cathies",
+      "Value": 133.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Team Engelwoman @ Big Dog Will",
+      "Value": 92.0
+    }
+  ]
+}
