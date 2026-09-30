@@ -1,0 +1,36 @@
+{
+  "trend": [
+    {
+      "date": "W01",
+      "value": 1174.0
+    },
+    {
+      "date": "W02",
+      "value": 1055.0
+    },
+    {
+      "date": "W03",
+      "value": 1046.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 1046.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 87.17
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Big Dog D",
+      "Value": 118.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Arizona Cardinals @ Philly Fly Eagles Fly",
+      "Value": 59.0
+    }
+  ]
+}
