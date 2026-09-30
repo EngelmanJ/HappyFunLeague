@@ -44,8 +44,8 @@ it('ignores old newsletter responses and aligns heterogeneous statistic columns'
     if (url === weeks[1].summary) return Promise.resolve(response('<p>Week one newsletter</p>'));
     return Promise.resolve(response(JSON.stringify({ table: [{ Metric: 'Total', Value: 100 }, { Metric: 'Highest', Team: 'Wombats', Value: 70 }] })));
   }));
-  render(<WeeklyDigest />);
-  fireEvent.click(await screen.findByRole('button', { name: 'Week 01, 2025' }));
+  render(<MemoryRouter><WeeklyDigest /></MemoryRouter>);
+  fireEvent.change(await screen.findByRole('combobox', { name: 'Select Week' }), {target:{value:'2025-W01'}});
   await screen.findByText('Week one newsletter');
   await act(async () => old.resolve(response('<p>Old week two newsletter</p>')));
   expect(screen.queryByText('Old week two newsletter')).not.toBeInTheDocument();
@@ -63,9 +63,9 @@ it('clears a failed issue error when another week succeeds', async () => {
     if (url.endsWith('.html')) return response('<p>Recovered newsletter</p>');
     return response('{"table":[],"trend":[]}');
   }));
-  render(<WeeklyDigest />);
+  render(<MemoryRouter><WeeklyDigest /></MemoryRouter>);
   await screen.findByRole('alert');
-  fireEvent.click(screen.getByRole('button', { name: 'Week 01, 2025' }));
+  fireEvent.change(screen.getByRole('combobox', { name: 'Select Week' }), {target:{value:'2025-W01'}});
   await screen.findByText('Recovered newsletter');
   expect(screen.queryByRole('alert')).not.toBeInTheDocument();
 });
@@ -114,4 +114,22 @@ it('makes both timeline and arena tables keyboard-scrollable with named row head
     expect(within(table).getAllByRole('rowheader').length).toBeGreaterThan(0);
     for (const header of within(table).getAllByRole('rowheader')) expect(header).toHaveAttribute('scope', 'row');
   }
+});
+it('opens a linked issue and navigates between published weeks', async () => {
+  vi.stubGlobal('fetch', vi.fn(async url => {
+    if (url.endsWith('index.json')) return response(JSON.stringify({ weeks }));
+    if (url.endsWith('.html')) return response('<p>'+url+'</p>');
+    return response('{"table":[]}');
+  }));
+  render(<MemoryRouter initialEntries={['/weekly?issue=2025-W01']}><WeeklyDigest /></MemoryRouter>);
+  await screen.findByRole('heading', {name:'Week 1 · 2025'});
+  expect(screen.getByRole('button', {name:'← Previous'})).toBeDisabled();
+  const writeText = vi.fn().mockResolvedValue(undefined);
+  Object.defineProperty(navigator, 'clipboard', {configurable:true, value:{writeText}});
+  fireEvent.click(screen.getByRole('button', {name:'Copy link to this issue'}));
+  await screen.findByText('Link copied!');
+  expect(writeText).toHaveBeenCalledWith(expect.stringContaining('#/weekly?issue=2025-W01'));
+  fireEvent.click(screen.getByRole('button', {name:'Next →'}));
+  await screen.findByRole('heading', {name:'Week 2 · 2025'});
+  expect(screen.getByRole('button', {name:'Next →'})).toBeDisabled();
 });

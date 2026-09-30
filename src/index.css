@@ -95,3 +95,15 @@ html, body, #root {
   opacity: 0.9;
 }
 .prose-invert hr { border-top-color: #334155; }
+
+.site-tab {padding: .8rem 0; border-bottom:3px solid transparent; color:#94a3b8; font-weight:600;}
+.site-tab.active {color:#f8fafc;border-color:#34d399;}
+.site-tab:hover {color:#fff;}
+.issue-nav {display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .75rem;}
+.issue-nav label {display:flex;align-items:center;gap:.4rem;font-size:.75rem;color:#94a3b8;}
+.issue-nav select,.issue-nav button {background:#020617;color:#e2e8f0;border:1px solid #334155;border-radius:.4rem;padding:.45rem .6rem;font-size:.875rem;min-height:40px;}
+.issue-nav button:disabled {opacity:.35;cursor:default;}
+.issue-nav a {align-self:center;}
+
+.issue-share {display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;}
+.issue-share button {border-color:#34685b;color:#6ee7b7;}

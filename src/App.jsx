@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import SiteHeader from "./components/SiteHeader";
 import { cn, groupBy, seasonMaxByYear, buildH2HIndex, loadDashboard } from "./lib/data";
-import useHeaderImage from "./lib/useHeaderImage";
+
 import ScrollTable, { FrozenCell } from "./components/ScrollTable";
 import ChartFrame from "./components/ChartFrame";
 import { seriesStyle, formatPercent, chartTooltipProps, winLossDomain } from "./lib/charts";
@@ -52,7 +52,7 @@ export default function App(){
   const [podiumOnly,setPodiumOnly]=useState(false); const [showHistory,setShowHistory]=useState(false); const [lastStyle,setLastStyle]=useState("skull");
   const [newestFirst,setNewestFirst]=useState(true);
   const [selectedTeamIds,setSelectedTeamIds]=useState([]);
-  const headerImgUrl = useHeaderImage();
+
   const [h2hGames,setH2hGames]=useState([]);
   const [focalTeamId,setFocalTeamId]=useState(""); const [selectedOppIds,setSelectedOppIds]=useState([]);
 
@@ -199,37 +199,10 @@ export default function App(){
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
     {/* <div className="min-h-dvh bg-slate-950 text-slate-200"> */}
-      <header className="xl:sticky xl:top-0 z-50 site-header border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-            <div className="flex items-start gap-4 min-w-0">
-              <div className="relative">
-                {/* {headerImgUrl? <img src={headerImgUrl} alt="HFL header art" className="h-24 md:h-28 w-auto rounded-md border border-slate-800 shadow shrink-0" /> : <div className="h-16 w-28 rounded-md border border-slate-800 bg-slate-800/40" />} */}
-                {headerImgUrl? <img src={headerImgUrl} alt="Happy Fun League Logo" className="h-24 md:h-28 w-auto object-contain" /> : <div className="h-16 w-28 rounded-md border border-slate-800 bg-slate-800/40" />}
-              </div>
-              <h1 className="text-[2rem] leading-[2.25rem] md:text-[3.5rem] md:leading-[3rem] font-black tracking-tight">
-                <span className="block">Happy Fun League</span>
-                <span className="block">
-                  <span className="text-fuchsia-400">Records of Glory</span> & <span className="text-rose-400">Shame</span>
-                </span>
-              </h1>
-            </div>
-            <div className="flex flex-col items-end gap-2 max-w-full">
-              <div className="flex gap-3 items-center justify-end">
-                <Link
-                  to="/weekly"
-                  // className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm hover:bg-slate-700/60"
-                  className="px-5 py-2 rounded-full bg-slate-800 border border-slate-700 text-lg font-semibold hover:bg-slate-700/60 whitespace-nowrap"
-                >
-                  Weekly Summaries
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="max-w-7xl mx-auto px-4 pb-24 pt-6">
+<nav aria-label="History sections" className="flex flex-wrap gap-4 mb-6 text-sm text-emerald-300">{[["timeline","League Timeline"],["arena","Head-to-Head Arena"],["standings","Final Standings"]].map(([id,label])=><button key={id} onClick={()=>document.getElementById(id)?.scrollIntoView({behavior:"smooth"})}>{label} ↓</button>)}</nav>
         <div className="min-w-0">
           {!rows.length && (
             <div className="mb-6 rounded-xl border border-slate-800 bg-slate-900 p-4">
@@ -242,7 +215,7 @@ export default function App(){
             <>
               <section className="mb-10">
                 <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-                  <h2 className="text-xl font-bold">League Timeline (rolled-up by franchise)</h2>
+                  <h2 id="timeline" className="text-xl font-bold">League Timeline (rolled-up by franchise)</h2>
                   <div className="flex items-center gap-2 flex-wrap justify-end">
                     <button type="button" onClick={()=>setNewestFirst(v=>!v)} aria-label="Reverse year order in both tables" title="Changes the timeline and head-to-head tables" className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm">{newestFirst ? "Newest first ↓" : "Oldest first ↑"}</button>
                     <label className="inline-flex items-center gap-2 select-none cursor-pointer">
@@ -337,7 +310,7 @@ export default function App(){
               </section>
 
               <section className="mb-8">
-                <h2 className="text-xl font-bold">Head-to-Head Arena</h2>
+                <h2 id="arena" className="text-xl font-bold">Head-to-Head Arena</h2>
 
                 <div className="rounded-xl border border-slate-800 p-3 bg-slate-900/60 mt-2">
                   <div className="flex flex-wrap items-center justify-between gap-3">
@@ -436,7 +409,7 @@ export default function App(){
               </section>
 
               <section className="mb-3">
-                <h2 className="text-xl font-bold">Wiggly Lines of Triumph (and Despair)</h2>
+                <h2 id="standings" className="text-xl font-bold">Wiggly Lines of Triumph (and Despair)</h2>
                 <p className="text-slate-400 text-sm mb-2">Pick teams to plot their final standing over time. Lower is better; axis is flipped so #1 sits at the top.</p>
                 <div className="grid md:grid-cols-[14rem_minmax(0,1fr)] gap-3 items-start">
                   <div className="rounded-xl border border-slate-800 p-3 bg-slate-900/60 max-h-[560px] overflow-auto ">

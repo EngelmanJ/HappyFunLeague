@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { fetchText } from "./lib/data";
 import { loadIssue, validateIndex, weekKey } from "./lib/digest";
-import useHeaderImage from "./lib/useHeaderImage";
+import CopyIssueLink from "./components/CopyIssueLink";
+import SiteHeader from "./components/SiteHeader";
+import { Link, useSearchParams } from "react-router-dom";
 import ScrollTable from "./components/ScrollTable";
 import ChartFrame from "./components/ChartFrame";
 import { chartTooltipProps } from "./lib/charts";
@@ -11,11 +13,17 @@ import footerImg from "./assets/header.png";
 
 export default function WeeklyDigest() {
   const [indexData, setIndexData] = useState(null);
-  const [activeKey, setActiveKey] = useState("");
+  const [params, setParams] = useSearchParams();
+  const requestedKey = params.get('issue');
+  const activeKey = requestedKey || (indexData ? weekKey(indexData.weeks[0]) : '');
+  const setActiveKey = key => setParams({issue:key});
+  const selectedIndex = indexData?.weeks.findIndex(w => weekKey(w) === activeKey) ?? -1;
+  const selectedWeek = indexData?.weeks[selectedIndex];
+  const years = [...new Set(indexData?.weeks.map(w=>w.year) ?? [])];
   const [issue, setIssue] = useState(null);
   const [indexError, setIndexError] = useState("");
   const [retry, setRetry] = useState(0);
-  const headerImgUrl = useHeaderImage();
+
 
   useEffect(() => {
     const controller = new AbortController();
@@ -26,7 +34,6 @@ export default function WeeklyDigest() {
       .then(index => {
         if (!active) return;
         setIndexData(index);
-        setActiveKey(previous => index.weeks.some(w => weekKey(w) === previous) ? previous : weekKey(index.weeks[0]));
       }).catch(() => { if (active) setIndexError("Could not load the weekly index."); });
     return () => { active = false; controller.abort(); };
   }, [retry]);
@@ -52,61 +59,31 @@ export default function WeeklyDigest() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
-      <header className="xl:sticky xl:top-0 z-50 site-header border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-            <div className="flex items-start gap-4 min-w-0">
-              <div className="relative">
-                {/* {headerImgUrl? <img src={headerImgUrl} alt="HFL header art" className="h-24 md:h-28 w-auto rounded-md border border-slate-800 shadow shrink-0" /> : <div className="h-16 w-28 rounded-md border border-slate-800 bg-slate-800/40" />} */}
-                {headerImgUrl? <img src={headerImgUrl} alt="Happy Fun League Logo" className="h-24 md:h-28 w-auto object-contain" /> : <div className="h-16 w-28 rounded-md border border-slate-800 bg-slate-800/40" />}
-              </div>
-              <h1 className="text-[2rem] leading-[2.25rem] md:text-[3rem] md:leading-[3rem] font-black tracking-tight">
-                <span className="block">Happy Fun League</span>
-                <span className="block">
-                  <span className="text-fuchsia-400">Weekly Summaries of Glory</span> & <span className="text-rose-400">Shame</span>
-                </span>
-              </h1>
-            </div>
-            <a
-              href={"#/"}
-              // className="px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-sm hover:bg-slate-700/60"
-              className="px-5 py-2 rounded-full bg-slate-800 border border-slate-700 text-lg font-semibold hover:bg-slate-700/60 whitespace-nowrap"
-            >
-              Back to Dashboard
-            </a>
-          </div>
-        </div>
-      </header>
+      <SiteHeader />
 
-      <main className="max-w-7xl mx-auto px-4 py-6">
+      <main className="max-w-5xl mx-auto px-4 py-6">
         {err && <p role="alert" className="text-rose-300 mb-3">{err} <button className="underline" onClick={() => setRetry(n => n + 1)}>Retry</button></p>}
 
-        <div className="grid md:grid-cols-[14rem_minmax(0,1fr)] gap-4 items-start">
-          <aside className="rounded-xl border border-slate-800 bg-slate-900/60 p-3">
-            <h2 className="font-semibold mb-2">Select Week</h2>
-            <select aria-label="Select Week" className="md:hidden w-full min-h-11 rounded border border-slate-700 bg-slate-900 px-2 text-base" value={activeKey} onChange={event => setActiveKey(event.target.value)} disabled={!indexData}>
-              {!indexData && <option value="">Loading weeks…</option>}
-              {indexData?.weeks.map(w => <option key={weekKey(w)} value={weekKey(w)}>{w.title || `Week ${String(w.week).padStart(2,"0")}, ${w.year}`}</option>)}
-            </select>
-            <div className="hidden md:block space-y-1 max-h-[420px] overflow-auto">
-              {indexData?.weeks?.map(w => {
-                const key = `${w.year}-W${String(w.week).padStart(2,"0")}`;
-                const label = w.title || `Week ${String(w.week).padStart(2,"0")}, ${w.year}`;
-                return (
-                  <button
-                    key={key}
-                    aria-pressed={activeKey === key}
-                    onClick={() => setActiveKey(key)}
-                    className={`w-full text-left px-2 py-1 rounded border ${activeKey===key ? "border-emerald-500/60 bg-emerald-900/20" : "border-slate-800 hover:border-slate-700"}`}
-                    title={label}
-                  >
-                    {label}
-                  </button>
-                );
-              })}
+        <div>
+          <div className="mb-6">
+            <p className="text-xs uppercase tracking-widest text-emerald-300 mb-2">{selectedIndex === 0 ? 'Fresh from the league' : 'From the archive'}</p>
+            <h2 className="text-3xl font-bold mb-2">{selectedWeek ? 'Week '+selectedWeek.week+' · '+selectedWeek.year : 'Weekly Summaries'}</h2>
+            <p className="text-slate-400">The matchups, the upsets, and the weekly bragging rights.</p>
+          </div>
+          {indexData && <nav aria-label="Issue navigation" className="issue-nav mb-6">
+            <label>Season<select aria-label="Season" value={selectedWeek?.year ?? ''} onChange={e=>setActiveKey(weekKey(indexData.weeks.find(w=>w.year===Number(e.target.value))))}>
+             {!selectedWeek && <option value="">Choose season</option>}{years.map(y=><option key={y} value={y}>{y}</option>)}
+            </select></label>
+            <label>Week<select aria-label="Select Week" value={activeKey} onChange={e=>setActiveKey(e.target.value)}>
+             {!selectedWeek && <option value={activeKey}>Choose week</option>}{indexData.weeks.filter(w=>w.year===selectedWeek?.year).map(w=><option key={weekKey(w)} value={weekKey(w)}>Week {w.week}</option>)}
+            </select></label>
+            <div className="flex gap-2 flex-wrap">
+             <button disabled={selectedIndex<0 || selectedIndex===indexData.weeks.length-1} onClick={()=>setActiveKey(weekKey(indexData.weeks[selectedIndex+1]))}>← Previous</button>
+             <button disabled={selectedIndex<=0} onClick={()=>setActiveKey(weekKey(indexData.weeks[selectedIndex-1]))}>Next →</button>
             </div>
-          </aside>
-
+            {selectedWeek && <CopyIssueLink key={activeKey} issueKey={activeKey} />}
+          </nav>}
+          {indexData && !selectedWeek ? <p role="alert">This issue is not available. <Link to="/weekly" className="underline">Read the latest issue</Link>.</p> :
           <section className="space-y-4 min-w-0">
             <article className="rounded-xl border border-slate-800 bg-slate-900/60 p-4">
               {/* <h2 className="text-lg font-semibold mb-3">Summary</h2> */}
@@ -158,7 +135,8 @@ export default function WeeklyDigest() {
                   </ScrollTable>
               )}
             </article>
-          </section>
+          </section>}
+          <Link to="/history" className="block mt-8 p-5 rounded-xl border border-slate-700 bg-slate-900 hover:border-emerald-500"><strong className="text-lg">Explore league history →</strong><p className="text-slate-400 mt-1">Revisit the champions, settle a rivalry, or trace your rise through the standings.</p></Link>
         </div>
         {/* <footer className="mt-12 text-center text-xs text-slate-500 flex flex-col items-center justify-center gap-0"> <img src="header.png" alt="Robot Rockstar" className="w-80 h-80 object-contain" /> Built with Tailwind, Recharts, and a healthy dose of trash-talk. </footer> */}
         <footer className="mt-12 text-center text-xs text-slate-500 flex flex-col items-center justify-center gap-0"> <img src={footerImg} alt="Robot Rockstar" className="w-80 h-80 object-contain" /> Built with Tailwind, Recharts, and a healthy dose of trash-talk. </footer>
