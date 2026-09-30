@@ -12,8 +12,9 @@ export default function SiteHeader() {
      <span className="block"><span className="text-fuchsia-400">Records of Glory</span> & <span className="text-rose-400">Shame</span></span>
     </h1>
    </div>
-   <nav aria-label="Main navigation" className="flex gap-6">
+   <nav aria-label="Main navigation" className="grid grid-cols-3 md:flex gap-3 md:gap-6">
     <NavLink to="/weekly" className={({isActive})=>'site-tab '+(isActive?'active':'')}>Weekly Summaries</NavLink>
+    <NavLink to="/season" className={({isActive})=>'site-tab '+(isActive?'active':'')}>Current Season</NavLink>
     <NavLink to="/history" className={({isActive})=>'site-tab '+(isActive?'active':'')}>League History</NavLink>
    </nav>
   </div>

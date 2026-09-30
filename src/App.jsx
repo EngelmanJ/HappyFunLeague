@@ -1,3 +1,4 @@
+import { toDivFull, toDivShort } from './lib/divisions';
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import SiteHeader from "./components/SiteHeader";
 import { cn, groupBy, seasonMaxByYear, buildH2HIndex, loadDashboard } from "./lib/data";
@@ -23,32 +24,11 @@ const DIV_PALETTE=["#8b5cf6","#f59e0b","#10b981","#3b82f6","#ef4444","#ec4899","
 const divColor=(name)=>{ if(!name) return undefined; const s=String(name); let h=0; for(let i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))>>>0; return DIV_PALETTE[h%DIV_PALETTE.length]; };
 const aBg=(hex)=>{ if(!hex) return undefined; const h=hex.replace('#',''); const r=parseInt(h.slice(0,2),16), g=parseInt(h.slice(2,4),16), b=parseInt(h.slice(4,6),16); return `rgba(${r},${g},${b},0.15)`; };
 
-const DIV_MAP = {
-  "0": { full: "Pandas",   short: "P" },
-  "1": { full: "Shibas",   short: "S" },
-  "2": { full: "Unicorns", short: "U" },
-};
-const toDivFull = (x) => {
-  const k = String(x ?? "").trim();
-  if (DIV_MAP[k]) return DIV_MAP[k].full;
-  const hit = Object.values(DIV_MAP).find(v =>
-    v.full.toLowerCase() === k.toLowerCase() || v.short.toLowerCase() === k.toLowerCase()
-  );
-  return hit ? hit.full : k;
-};
-export const toDivShort = (x) => {
-  const k = String(x ?? "").trim();
-  if (DIV_MAP[k]) return DIV_MAP[k].short;
-  const hit = Object.values(DIV_MAP).find(v =>
-    v.full.toLowerCase() === k.toLowerCase() || v.short.toLowerCase() === k.toLowerCase()
-  );
-  return hit ? hit.short : (k ? k[0].toUpperCase() : "");
-};
-
 
 export default function App(){
   const [rows,setRows]=useState([]); const [parseError,setParseError]=useState("");
   const [currentTeams,setCurrentTeams]=useState([]);
+  const [currentSeason,setCurrentSeason]=useState(null);
   const [podiumOnly,setPodiumOnly]=useState(false); const [showHistory,setShowHistory]=useState(false); const [lastStyle,setLastStyle]=useState("skull");
   const [newestFirst,setNewestFirst]=useState(true);
   const [selectedTeamIds,setSelectedTeamIds]=useState([]);
@@ -66,6 +46,7 @@ export default function App(){
     loadDashboard(controller.signal).then(data => {
       if (!active) return;
       setRows(data.rows);
+      setCurrentSeason(data.currentSeason);
       setCurrentTeams(data.currentTeams);
       setH2hGames(data.games);
       setDivSeasonRows(data.divisions);
@@ -311,6 +292,7 @@ export default function App(){
 
               <section className="mb-8">
                 <h2 id="arena" className="text-xl font-bold">Head-to-Head Arena</h2>
+                {currentSeason && <p className="text-sm text-slate-400 mb-2">Includes completed {currentSeason.season} games through Week {currentSeason.throughWeek}. Season standings above remain final results only.</p>}
 
                 <div className="rounded-xl border border-slate-800 p-3 bg-slate-900/60 mt-2">
                   <div className="flex flex-wrap items-center justify-between gap-3">

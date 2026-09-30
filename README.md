@@ -87,3 +87,36 @@ the active implementation.
 Building alone does not publish. Use relative runtime data paths (`data/...`)
 and imported images. Reset a header override with
 `localStorage.removeItem('hfl_header_art')`; disabled storage is harmless.
+
+## Current season snapshot
+
+The Current Season tab and history head-to-head charts share `public/data/current_season.json`.
+Final standings and trophy counts continue to use finalized seasons only. Current standings
+use ESPN's official seed order and playoff probabilities. Owners use reviewed current
+identities; current divisions come from ESPN. Expanded team rows show games, division/home/away
+records, streaks, moves and games back. The four-team projected championship bracket uses
+seeds 1 vs 4 and 2 vs 3; seeds 5–12 form the consolation ladder. No future scores are invented.
+
+After reviewing completed games and converting the corresponding newsletter, run from this
+website directory (adjust year/week):
+
+```sh
+node scripts/export-current-season.mjs --source ../../out/weekly/2026 --season 2026 --through-week 3 --confirmed-final
+npm run check
+```
+
+The weekly Python collector also saves `week_N/espn_standings.json`. To retry just that capture,
+run `python scripts/espn_standings.py --year 2026 --week 3` from the outer project using its
+configured Python environment. This is an API call; no saved webpage or manual download is needed.
+ESPN current standings cannot reconstruct an earlier week's probabilities. Historical reruns
+preserve the old snapshot when live records no longer match that week.
+
+The export reads reviewed team identities, weekly game CSVs and the latest week's ESPN snapshot,
+requires every team to play exactly once per week, and reconciles ESPN W/L/T and PF/PA against
+those games. It copies only explicitly allowed standings, playoff settings and game fields. It never
+copies credentials, owner records, raw snapshots or newsletter drafts. A published newsletter
+alone does not prove finality; confirm games are final before passing `--confirmed-final`.
+The export replaces the complete current snapshot atomically; reruns do not append games.
+Missing or mismatched ESPN snapshots stop the export before replacing the website data.
+Build and publication remain separate steps. Root navigation opens Weekly Summaries;
+`#/season` opens Current Season and `#/history` opens the historical dashboard.

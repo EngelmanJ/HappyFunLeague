@@ -1,3 +1,5 @@
+import { toDivFull } from './divisions';
+import { validateSeason } from './currentSeason';
 import Papa from 'papaparse';
 
 const first = (...values) => values.find(v => v != null && String(v).trim() !== '');
@@ -72,6 +74,20 @@ export async function fetchText(url, signal) {
   if (!response.ok) throw new Error(`Could not load ${url} (${response.status})`);
   return response.text();
 }
+export async function loadCurrentSeason(signal, context) {
+ const [season, currentTeams, teamDivisions] = await Promise.all([
+  fetchText('data/current_season.json',signal).then(text=>validateSeason(JSON.parse(text))),
+  context ? context.currentTeams : fetchText('data/current_teams.csv',signal).then(text=>parseCSV(text,normalizeCurrentTeam)),
+  context ? context.teamDivisions : fetchText('data/team_divisions.csv',signal).then(text=>parseCSV(text,normalizeTeamDivisionRow)),
+ ]);
+ return {...season,teams:season.teams.map(t=>{
+  const identity=currentTeams.find(c=>c.team_id===t.id&&c.season===season.season);
+  const division=teamDivisions.filter(d=>d.team_id===t.id&&d.season<=season.season).sort((a,b)=>b.season-a.season)[0];
+  if(!identity || !division)throw Error('Missing current team identity or division');
+  const official=season.espn?.teams.find(row=>row.id===t.id);
+  return {...t,name:identity.team_name,owner:identity.owner,divisionId:official?.divisionId ?? division.division_id,division:official?.division ?? toDivFull(division.division_id)};
+ })};
+}
 export async function loadDashboard(signal) {
   const specs = [
     ['records_raw_with_owner_names.csv', normalizeRow],
@@ -85,11 +101,16 @@ export async function loadDashboard(signal) {
     const standings = teams.map(r => r.final_standing).sort((a, b) => a - b);
     if (new Set(teams.map(r => r.team_id)).size !== teams.length || standings.some((v, i) => v !== i + 1)) throw new Error(`Incomplete or duplicate standings for ${year}`);
   }
-  buildH2HIndex(games); // Reject duplicate games before committing any dashboard state.
+  const currentSeason = await loadCurrentSeason(signal, {currentTeams, teamDivisions});
+  const currentIds = new Set(currentTeams.map(t=>t.team_id));
+  if(currentSeason.season!==currentTeams[0]?.season || currentSeason.teams.length!==currentTeams.length || currentSeason.teams.some(t=>!currentIds.has(t.id))) throw Error('Current season identities disagree');
+  // The current season is authoritative for its games; final seasons stay in the archive.
+  const combinedGames = [...games.filter(g=>g.season!==currentSeason.season),...currentSeason.games];
+  buildH2HIndex(combinedGames); // Reject duplicate games before committing any dashboard state.
   for (const d of [...divisions, ...teamDivisions]) if (!Number.isInteger(d.season) || !d.division_id) throw new Error('Invalid division data');
   const historyIds = new Set(rows.map(r => r.team_id));
   if (new Set(currentTeams.map(r => r.team_id)).size !== currentTeams.length ||
       new Set(currentTeams.map(r => r.season)).size !== 1 ||
       currentTeams.some(r => !historyIds.has(r.team_id) || r.season < Math.max(...rows.map(r => r.year)))) throw new Error('Review current franchise links');
-  return { rows, games, divisions, teamDivisions, currentTeams };
+  return { rows, games: combinedGames, divisions, teamDivisions, currentTeams, currentSeason };
 }

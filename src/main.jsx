@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 import App from "./App.jsx";
+import CurrentSeason from "./CurrentSeason";
 import WeeklyDigest from "./WeeklyDigest.jsx";
 import "./index.css";
 
@@ -10,6 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <HashRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/weekly" replace />} />
+        <Route path="/season" element={<CurrentSeason />} />
         <Route path="/history" element={<App />} />
         <Route path="/weekly" element={<WeeklyDigest />} />
       </Routes>

@@ -6,6 +6,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { expect, it, vi } from 'vitest';
 import App from '../src/App';
 import WeeklyDigest from '../src/WeeklyDigest';
+import CurrentSeason from '../src/CurrentSeason';
 
 // Charts are exercised by the production browser smoke check; DOM tests focus on state.
 vi.mock('recharts', () => {
@@ -32,7 +33,7 @@ it('preserves chart selections when changing focal franchise without refetching'
   fireEvent.change(select, { target: { value } });
   await waitFor(() => expect(select.value).toBe(value));
   expect(boxes.map(b => b.checked)).toEqual(before);
-  expect(fetch).toHaveBeenCalledTimes(5);
+  expect(fetch).toHaveBeenCalledTimes(6);
   expect(fetch.mock.calls.some(([url]) => url.includes('h2h_summary'))).toBe(false);
 });
 
@@ -132,4 +133,35 @@ it('opens a linked issue and navigates between published weeks', async () => {
   fireEvent.click(screen.getByRole('button', {name:'Next →'}));
   await screen.findByRole('heading', {name:'Week 2 · 2025'});
   expect(screen.getByRole('button', {name:'Next →'})).toBeDisabled();
+});
+
+it('loads current season, links its newsletter and supports empty chart selections', async () => {
+ let fail=true;
+ vi.stubGlobal('fetch', vi.fn(async url=>fail?{ok:false,status:503}:response(fixture(url))));
+ render(<MemoryRouter initialEntries={['/season']}><CurrentSeason /></MemoryRouter>);
+ const retry=await screen.findByRole('button',{name:'Retry'});
+ fail=false;
+ fireEvent.click(retry);
+ await screen.findByRole('table',{name:'Current season standings'});
+ const team=screen.getByRole('button',{name:'▸ Arizona Wombats'});
+ fireEvent.click(team);
+ expect(team).toHaveAttribute('aria-expanded','true');
+ const log=screen.getByRole('region',{name:'Arizona Wombats season games'});
+ expect(within(log).getAllByRole('listitem')).toHaveLength(3);
+ expect(log).toHaveTextContent('L 117–122');
+ expect(log).toHaveTextContent('W 106–51');
+ expect(screen.getByRole('table')).toHaveTextContent('Jeremiah E.');
+ expect(screen.getByRole('table')).toHaveTextContent('Shibas');
+ expect(within(log).getByText('Division record')).toBeInTheDocument();
+ expect(screen.queryByRole('columnheader',{name:'Owner',exact:true})).not.toBeInTheDocument();
+ expect(screen.queryByRole('columnheader',{name:'Division',exact:true})).not.toBeInTheDocument();
+ expect(screen.getByRole('article',{name:'Seed 1 versus seed 4'})).toHaveTextContent('Arizona Cardinals');
+ expect(screen.getByRole('article',{name:'Seed 2 versus seed 3'})).toHaveTextContent("T-Dog's Bruisers");
+ fireEvent.click(screen.getByText('Consolation ladder · Seeds 5–12'));
+ expect(screen.getByRole('article',{name:'Seed 5 versus seed 6'})).toHaveTextContent('Tempe Trout');
+ fireEvent.click(team);
+ expect(screen.queryByRole('region',{name:'Arizona Wombats season games'})).not.toBeInTheDocument();
+ expect(screen.getByRole('link',{name:'Read the weekly summary →'})).toHaveAttribute('href','/weekly?issue=2026-W03');
+ for(const box of screen.getAllByRole('checkbox')) if(box.checked)fireEvent.click(box);
+ expect(screen.getByRole('status')).toHaveTextContent('Select a team');
 });

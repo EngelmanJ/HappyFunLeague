@@ -107,3 +107,18 @@ html, body, #root {
 
 .issue-share {display:flex;align-items:center;flex-wrap:wrap;gap:.5rem;}
 .issue-share button {border-color:#34685b;color:#6ee7b7;}
+
+.site-tab {white-space:nowrap;flex-shrink:0;}
+
+@media (max-width:767px) {.site-tab {white-space:normal;font-size:.875rem;text-align:center;display:flex;align-items:center;justify-content:center;}}
+
+.season-game-log {position:sticky;left:0;width:min(34rem,calc(100vw - 2.2rem));white-space:normal;}
+.team-caption {display:block;white-space:normal;font-size:.75rem;line-height:1.4;color:#94a3b8;margin-top:.3rem;}
+.season-team-toggle {display:grid;grid-template-columns:1rem minmax(0,1fr);column-gap:.25rem;}
+.season-standings .team-caption {padding-left:1.25rem;}
+.season-standings .frozen-label {width:13rem;min-width:13rem;max-width:13rem;}
+.bracket-rounds {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem;}
+.bracket-match {border:1px solid #334155;background:#0f172a;border-radius:.75rem;padding:1rem;min-width:0;}
+.bracket-team {display:flex;gap:.75rem;align-items:center;padding:.65rem 0;}
+.bracket-team + .bracket-team {border-top:1px solid #1e293b;}
+@media(max-width:639px) {.bracket-rounds {grid-template-columns:1fr;}.season-standings .frozen-label {width:12rem;min-width:12rem;max-width:12rem;}}

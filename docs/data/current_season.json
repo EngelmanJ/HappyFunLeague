@@ -1,0 +1,661 @@
+{
+  "season": 2026,
+  "throughWeek": 3,
+  "teams": [
+    {
+      "id": "1",
+      "name": "Arizona Wombats"
+    },
+    {
+      "id": "2",
+      "name": "Arizona Smol Puppers"
+    },
+    {
+      "id": "3",
+      "name": "Philly Fly Eagles Fly"
+    },
+    {
+      "id": "4",
+      "name": "Big Dog Will"
+    },
+    {
+      "id": "5",
+      "name": "Pray for Mojo"
+    },
+    {
+      "id": "6",
+      "name": "Tempe Trout"
+    },
+    {
+      "id": "7",
+      "name": "Team Engelwoman"
+    },
+    {
+      "id": "8",
+      "name": "T-Dog's Bruisers"
+    },
+    {
+      "id": "9",
+      "name": "Arizona Cardinals"
+    },
+    {
+      "id": "10",
+      "name": "Big Dog D"
+    },
+    {
+      "id": "11",
+      "name": "Slater Chatty Cathies"
+    },
+    {
+      "id": "12",
+      "name": "Big dog Fin"
+    }
+  ],
+  "games": [
+    {
+      "season": 2026,
+      "week": 1,
+      "a": "2",
+      "b": "1",
+      "as": 122,
+      "bs": 117,
+      "winner": "2"
+    },
+    {
+      "season": 2026,
+      "week": 1,
+      "a": "12",
+      "b": "10",
+      "as": 92,
+      "bs": 103,
+      "winner": "10"
+    },
+    {
+      "season": 2026,
+      "week": 1,
+      "a": "6",
+      "b": "4",
+      "as": 111,
+      "bs": 77,
+      "winner": "6"
+    },
+    {
+      "season": 2026,
+      "week": 1,
+      "a": "8",
+      "b": "7",
+      "as": 78,
+      "bs": 110,
+      "winner": "7"
+    },
+    {
+      "season": 2026,
+      "week": 1,
+      "a": "9",
+      "b": "5",
+      "as": 99,
+      "bs": 81,
+      "winner": "9"
+    },
+    {
+      "season": 2026,
+      "week": 1,
+      "a": "3",
+      "b": "11",
+      "as": 87,
+      "bs": 97,
+      "winner": "11"
+    },
+    {
+      "season": 2026,
+      "week": 2,
+      "a": "1",
+      "b": "10",
+      "as": 119,
+      "bs": 69,
+      "winner": "1"
+    },
+    {
+      "season": 2026,
+      "week": 2,
+      "a": "12",
+      "b": "2",
+      "as": 68,
+      "bs": 71,
+      "winner": "2"
+    },
+    {
+      "season": 2026,
+      "week": 2,
+      "a": "8",
+      "b": "6",
+      "as": 103,
+      "bs": 81,
+      "winner": "8"
+    },
+    {
+      "season": 2026,
+      "week": 2,
+      "a": "4",
+      "b": "7",
+      "as": 126,
+      "bs": 34,
+      "winner": "4"
+    },
+    {
+      "season": 2026,
+      "week": 2,
+      "a": "5",
+      "b": "3",
+      "as": 102,
+      "bs": 49,
+      "winner": "5"
+    },
+    {
+      "season": 2026,
+      "week": 2,
+      "a": "11",
+      "b": "9",
+      "as": 133,
+      "bs": 100,
+      "winner": "11"
+    },
+    {
+      "season": 2026,
+      "week": 3,
+      "a": "1",
+      "b": "12",
+      "as": 106,
+      "bs": 51,
+      "winner": "1"
+    },
+    {
+      "season": 2026,
+      "week": 3,
+      "a": "10",
+      "b": "2",
+      "as": 118,
+      "bs": 79,
+      "winner": "10"
+    },
+    {
+      "season": 2026,
+      "week": 3,
+      "a": "7",
+      "b": "6",
+      "as": 80,
+      "bs": 98,
+      "winner": "6"
+    },
+    {
+      "season": 2026,
+      "week": 3,
+      "a": "4",
+      "b": "8",
+      "as": 84,
+      "bs": 101,
+      "winner": "8"
+    },
+    {
+      "season": 2026,
+      "week": 3,
+      "a": "5",
+      "b": "11",
+      "as": 90,
+      "bs": 82,
+      "winner": "5"
+    },
+    {
+      "season": 2026,
+      "week": 3,
+      "a": "3",
+      "b": "9",
+      "as": 49,
+      "bs": 108,
+      "winner": "9"
+    }
+  ],
+  "espn": {
+    "season": 2026,
+    "throughWeek": 3,
+    "source": "ESPN",
+    "fetchedAt": "2026-09-30T20:56:12.550430+00:00",
+    "playoffTeamCount": 4,
+    "seedRule": "INTRA_DIVISION_RECORD",
+    "regularSeasonWeeks": 14,
+    "rounds": [
+      [
+        15,
+        16
+      ],
+      [
+        17,
+        18
+      ]
+    ],
+    "consolationEnabled": true,
+    "reseed": false,
+    "teams": [
+      {
+        "id": "1",
+        "seed": 1,
+        "divisionId": "1",
+        "division": "Shibas",
+        "wins": 2,
+        "losses": 1,
+        "ties": 0,
+        "pf": 342,
+        "pa": 242,
+        "pct": 0.6666666666666666,
+        "gamesBack": 0,
+        "divisionRecord": [
+          2,
+          1,
+          0
+        ],
+        "homeRecord": [
+          2,
+          0,
+          0
+        ],
+        "awayRecord": [
+          0,
+          1,
+          0
+        ],
+        "streak": {
+          "type": "WIN",
+          "length": 2
+        },
+        "moves": 0,
+        "playoffPct": 0.50075,
+        "clinch": "UNKNOWN"
+      },
+      {
+        "id": "11",
+        "seed": 2,
+        "divisionId": "0",
+        "division": "Pandas",
+        "wins": 2,
+        "losses": 1,
+        "ties": 0,
+        "pf": 312,
+        "pa": 277,
+        "pct": 0.6666666666666666,
+        "gamesBack": 0,
+        "divisionRecord": [
+          2,
+          1,
+          0
+        ],
+        "homeRecord": [
+          1,
+          0,
+          0
+        ],
+        "awayRecord": [
+          1,
+          1,
+          0
+        ],
+        "streak": {
+          "type": "LOSS",
+          "length": 1
+        },
+        "moves": 0,
+        "playoffPct": 0.40425,
+        "clinch": "UNKNOWN"
+      },
+      {
+        "id": "8",
+        "seed": 3,
+        "divisionId": "2",
+        "division": "Unicorns",
+        "wins": 2,
+        "losses": 1,
+        "ties": 0,
+        "pf": 282,
+        "pa": 275,
+        "pct": 0.6666666666666666,
+        "gamesBack": 0,
+        "divisionRecord": [
+          2,
+          1,
+          0
+        ],
+        "homeRecord": [
+          1,
+          1,
+          0
+        ],
+        "awayRecord": [
+          1,
+          0,
+          0
+        ],
+        "streak": {
+          "type": "WIN",
+          "length": 2
+        },
+        "moves": 0,
+        "playoffPct": 0.47025,
+        "clinch": "UNKNOWN"
+      },
+      {
+        "id": "9",
+        "seed": 4,
+        "divisionId": "0",
+        "division": "Pandas",
+        "wins": 2,
+        "losses": 1,
+        "ties": 0,
+        "pf": 307,
+        "pa": 263,
+        "pct": 0.6666666666666666,
+        "gamesBack": 0,
+        "divisionRecord": [
+          2,
+          1,
+          0
+        ],
+        "homeRecord": [
+          1,
+          0,
+          0
+        ],
+        "awayRecord": [
+          1,
+          1,
+          0
+        ],
+        "streak": {
+          "type": "WIN",
+          "length": 1
+        },
+        "moves": 1,
+        "playoffPct": 0.4645,
+        "clinch": "UNKNOWN"
+      },
+      {
+        "id": "10",
+        "seed": 5,
+        "divisionId": "1",
+        "division": "Shibas",
+        "wins": 2,
+        "losses": 1,
+        "ties": 0,
+        "pf": 290,
+        "pa": 290,
+        "pct": 0.6666666666666666,
+        "gamesBack": 0,
+        "divisionRecord": [
+          2,
+          1,
+          0
+        ],
+        "homeRecord": [
+          1,
+          0,
+          0
+        ],
+        "awayRecord": [
+          1,
+          1,
+          0
+        ],
+        "streak": {
+          "type": "WIN",
+          "length": 1
+        },
+        "moves": 1,
+        "playoffPct": 0.47725,
+        "clinch": "UNKNOWN"
+      },
+      {
+        "id": "6",
+        "seed": 6,
+        "divisionId": "2",
+        "division": "Unicorns",
+        "wins": 2,
+        "losses": 1,
+        "ties": 0,
+        "pf": 290,
+        "pa": 260,
+        "pct": 0.6666666666666666,
+        "gamesBack": 0,
+        "divisionRecord": [
+          2,
+          1,
+          0
+        ],
+        "homeRecord": [
+          1,
+          0,
+          0
+        ],
+        "awayRecord": [
+          1,
+          1,
+          0
+        ],
+        "streak": {
+          "type": "WIN",
+          "length": 1
+        },
+        "moves": 1,
+        "playoffPct": 0.4675,
+        "clinch": "UNKNOWN"
+      },
+      {
+        "id": "5",
+        "seed": 7,
+        "divisionId": "0",
+        "division": "Pandas",
+        "wins": 2,
+        "losses": 1,
+        "ties": 0,
+        "pf": 273,
+        "pa": 230,
+        "pct": 0.6666666666666666,
+        "gamesBack": 0,
+        "divisionRecord": [
+          2,
+          1,
+          0
+        ],
+        "homeRecord": [
+          2,
+          0,
+          0
+        ],
+        "awayRecord": [
+          0,
+          1,
+          0
+        ],
+        "streak": {
+          "type": "WIN",
+          "length": 2
+        },
+        "moves": 3,
+        "playoffPct": 0.366,
+        "clinch": "UNKNOWN"
+      },
+      {
+        "id": "2",
+        "seed": 8,
+        "divisionId": "1",
+        "division": "Shibas",
+        "wins": 2,
+        "losses": 1,
+        "ties": 0,
+        "pf": 272,
+        "pa": 303,
+        "pct": 0.6666666666666666,
+        "gamesBack": 0,
+        "divisionRecord": [
+          2,
+          1,
+          0
+        ],
+        "homeRecord": [
+          1,
+          0,
+          0
+        ],
+        "awayRecord": [
+          1,
+          1,
+          0
+        ],
+        "streak": {
+          "type": "LOSS",
+          "length": 1
+        },
+        "moves": 0,
+        "playoffPct": 0.4475,
+        "clinch": "UNKNOWN"
+      },
+      {
+        "id": "4",
+        "seed": 9,
+        "divisionId": "2",
+        "division": "Unicorns",
+        "wins": 1,
+        "losses": 2,
+        "ties": 0,
+        "pf": 287,
+        "pa": 246,
+        "pct": 0.3333333333333333,
+        "gamesBack": 1,
+        "divisionRecord": [
+          1,
+          2,
+          0
+        ],
+        "homeRecord": [
+          1,
+          1,
+          0
+        ],
+        "awayRecord": [
+          0,
+          1,
+          0
+        ],
+        "streak": {
+          "type": "LOSS",
+          "length": 1
+        },
+        "moves": 0,
+        "playoffPct": 0.1875,
+        "clinch": "UNKNOWN"
+      },
+      {
+        "id": "7",
+        "seed": 10,
+        "divisionId": "2",
+        "division": "Unicorns",
+        "wins": 1,
+        "losses": 2,
+        "ties": 0,
+        "pf": 224,
+        "pa": 302,
+        "pct": 0.3333333333333333,
+        "gamesBack": 1,
+        "divisionRecord": [
+          1,
+          2,
+          0
+        ],
+        "homeRecord": [
+          0,
+          1,
+          0
+        ],
+        "awayRecord": [
+          1,
+          1,
+          0
+        ],
+        "streak": {
+          "type": "LOSS",
+          "length": 2
+        },
+        "moves": 3,
+        "playoffPct": 0.1205,
+        "clinch": "UNKNOWN"
+      },
+      {
+        "id": "12",
+        "seed": 11,
+        "divisionId": "1",
+        "division": "Shibas",
+        "wins": 0,
+        "losses": 3,
+        "ties": 0,
+        "pf": 211,
+        "pa": 280,
+        "pct": 0,
+        "gamesBack": 2,
+        "divisionRecord": [
+          0,
+          3,
+          0
+        ],
+        "homeRecord": [
+          0,
+          2,
+          0
+        ],
+        "awayRecord": [
+          0,
+          1,
+          0
+        ],
+        "streak": {
+          "type": "LOSS",
+          "length": 3
+        },
+        "moves": 0,
+        "playoffPct": 0.07425,
+        "clinch": "UNKNOWN"
+      },
+      {
+        "id": "3",
+        "seed": 12,
+        "divisionId": "0",
+        "division": "Pandas",
+        "wins": 0,
+        "losses": 3,
+        "ties": 0,
+        "pf": 185,
+        "pa": 307,
+        "pct": 0,
+        "gamesBack": 2,
+        "divisionRecord": [
+          0,
+          3,
+          0
+        ],
+        "homeRecord": [
+          0,
+          2,
+          0
+        ],
+        "awayRecord": [
+          0,
+          1,
+          0
+        ],
+        "streak": {
+          "type": "LOSS",
+          "length": 3
+        },
+        "moves": 0,
+        "playoffPct": 0.01975,
+        "clinch": "UNKNOWN"
+      }
+    ]
+  }
+}
