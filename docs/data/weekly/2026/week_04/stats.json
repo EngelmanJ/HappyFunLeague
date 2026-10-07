@@ -1,0 +1,40 @@
+{
+  "trend": [
+    {
+      "date": "W01",
+      "value": 1174.0
+    },
+    {
+      "date": "W02",
+      "value": 1055.0
+    },
+    {
+      "date": "W03",
+      "value": 1046.0
+    },
+    {
+      "date": "W04",
+      "value": 1057.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 1057.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 88.08
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Tempe Trout",
+      "Value": 133.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Tempe Trout @ Big dog Fin",
+      "Value": 60.0
+    }
+  ]
+}

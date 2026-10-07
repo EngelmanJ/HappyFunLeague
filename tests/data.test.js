@@ -11,7 +11,7 @@ describe('public data contract', () => {
     vi.stubGlobal('fetch', async url => ({ ok: true, text: async () => file(url) }));
     const data = await loadDashboard();
     const index = buildH2HIndex(data.games.filter(g=>g.season < data.currentSeason.season));
-    expect(data.games.filter(g=>g.season===2026)).toHaveLength(18);
+    expect(data.games.filter(g=>g.season===data.currentSeason.season)).toHaveLength(data.currentSeason.throughWeek * data.currentSeason.teams.length / 2);
     const sums = parseCSV(file('data/h2h_summary.csv'));
     for (const r of sums) {
       const totals = { wins: 0, losses: 0, ties: 0, pf: 0, pa: 0 };

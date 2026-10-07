@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { expect, it } from 'vitest';
 import { validateSeason, seasonStats } from '../src/lib/currentSeason';
-const fixture=()=>JSON.parse(readFileSync('public/data/current_season.json','utf8'));
+const fixture=()=>JSON.parse(readFileSync('tests/fixtures/current-season-week3.json','utf8'));
 it('reconciles current records, scoring and all completed weeks',()=>{
  const data=validateSeason(fixture()),{standings,trend}=seasonStats(data);
  expect(data.games).toHaveLength(18);

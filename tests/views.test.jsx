@@ -137,7 +137,7 @@ it('opens a linked issue and navigates between published weeks', async () => {
 
 it('loads current season, links its newsletter and supports empty chart selections', async () => {
  let fail=true;
- vi.stubGlobal('fetch', vi.fn(async url=>fail?{ok:false,status:503}:response(fixture(url))));
+ vi.stubGlobal('fetch', vi.fn(async url=>fail?{ok:false,status:503}:response(url.endsWith('current_season.json') ? readFileSync('tests/fixtures/current-season-week3.json','utf8') : fixture(url))));
  render(<MemoryRouter initialEntries={['/season']}><CurrentSeason /></MemoryRouter>);
  const retry=await screen.findByRole('button',{name:'Retry'});
  fail=false;
