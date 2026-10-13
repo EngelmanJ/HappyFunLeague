@@ -1,0 +1,44 @@
+{
+  "trend": [
+    {
+      "date": "W01",
+      "value": 1174.0
+    },
+    {
+      "date": "W02",
+      "value": 1055.0
+    },
+    {
+      "date": "W03",
+      "value": 1046.0
+    },
+    {
+      "date": "W04",
+      "value": 1057.0
+    },
+    {
+      "date": "W05",
+      "value": 1236.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 1236.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 103.0
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Big dog Fin",
+      "Value": 151.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Big dog Fin @ Team Engelwoman",
+      "Value": 63.0
+    }
+  ]
+}
