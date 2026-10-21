@@ -1,0 +1,48 @@
+{
+  "trend": [
+    {
+      "date": "W01",
+      "value": 1174.0
+    },
+    {
+      "date": "W02",
+      "value": 1055.0
+    },
+    {
+      "date": "W03",
+      "value": 1046.0
+    },
+    {
+      "date": "W04",
+      "value": 1057.0
+    },
+    {
+      "date": "W05",
+      "value": 1236.0
+    },
+    {
+      "date": "W06",
+      "value": 949.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 949.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 79.08
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Arizona Cardinals",
+      "Value": 114.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Big Dog D @ Team Engelwoman",
+      "Value": 35.0
+    }
+  ]
+}
