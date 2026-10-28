@@ -1,0 +1,52 @@
+{
+  "trend": [
+    {
+      "date": "W01",
+      "value": 1174.0
+    },
+    {
+      "date": "W02",
+      "value": 1055.0
+    },
+    {
+      "date": "W03",
+      "value": 1046.0
+    },
+    {
+      "date": "W04",
+      "value": 1057.0
+    },
+    {
+      "date": "W05",
+      "value": 1236.0
+    },
+    {
+      "date": "W06",
+      "value": 949.0
+    },
+    {
+      "date": "W07",
+      "value": 978.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 978.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 81.5
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Arizona Smol Puppers",
+      "Value": 113.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Arizona Smol Puppers @ Team Engelwoman",
+      "Value": 57.0
+    }
+  ]
+}

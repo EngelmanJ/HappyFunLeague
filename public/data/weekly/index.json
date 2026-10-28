@@ -2,6 +2,13 @@
   "weeks": [
     {
       "year": 2026,
+      "week": 7,
+      "title": "Week 07, 2026",
+      "summary": "data/weekly/2026/week_07/summary.html",
+      "stats": "data/weekly/2026/week_07/stats.json"
+    },
+    {
+      "year": 2026,
       "week": 6,
       "title": "Week 06, 2026",
       "summary": "data/weekly/2026/week_06/summary.html",
