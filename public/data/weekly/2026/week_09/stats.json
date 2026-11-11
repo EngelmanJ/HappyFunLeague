@@ -1,0 +1,60 @@
+{
+  "trend": [
+    {
+      "date": "W01",
+      "value": 1174.0
+    },
+    {
+      "date": "W02",
+      "value": 1055.0
+    },
+    {
+      "date": "W03",
+      "value": 1046.0
+    },
+    {
+      "date": "W04",
+      "value": 1057.0
+    },
+    {
+      "date": "W05",
+      "value": 1236.0
+    },
+    {
+      "date": "W06",
+      "value": 949.0
+    },
+    {
+      "date": "W07",
+      "value": 978.0
+    },
+    {
+      "date": "W08",
+      "value": 1061.0
+    },
+    {
+      "date": "W09",
+      "value": 1087.0
+    }
+  ],
+  "table": [
+    {
+      "Metric": "Total Points (league)",
+      "Value": 1087.0
+    },
+    {
+      "Metric": "Avg Points / Team",
+      "Value": 90.58
+    },
+    {
+      "Metric": "Highest Score",
+      "Team": "Tempe Trout",
+      "Value": 116.0
+    },
+    {
+      "Metric": "Biggest Blowout",
+      "Matchup": "Big Dog D @ Philly Fly Eagles Fly",
+      "Value": 35.0
+    }
+  ]
+}
