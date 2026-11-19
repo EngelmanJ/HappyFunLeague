@@ -20,6 +20,10 @@ newsletters at `#/weekly`, including direct navigation and refreshes.
 `npm run check` runs tests and builds. CI checks the website and advisories;
 it does not deploy.
 
+The GitHub Pages build keeps existing fingerprinted files in `docs/assets/`
+so cached HTML can still start after a release. Include those files when
+publishing the build. Asset retention is cumulative across releases.
+
 The stack is React 18, React Router 7, Recharts 2, Vite 7, and Tailwind 4 through
 its Vite plugin. Vitest and Testing Library provide regression tests. DOMPurify
 sanitizes newsletter markup, preserving ordinary formatting and inline images.
